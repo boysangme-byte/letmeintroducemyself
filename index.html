@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRISM MAKER | CRM Marketing Strategist</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/3d-force-graph"></script>
+  <script src="https://unpkg.com/three"></script>
+  <style>
+    body { margin:0; font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif; background:#0b0b0b; color:#fff; overflow-x:hidden; }
+    section { padding:100px 10%; }
+    h1,h2,h3 { font-weight:700; letter-spacing:-0.5px; }
+    nav { position:fixed; top:0; width:100%; background:#ff4d00; padding:15px 5%; display:flex; justify-content:space-between; z-index:1000; }
+    nav a { color:#fff; text-decoration:none; margin:0 12px; font-weight:600; }
+    nav a:hover { text-decoration:underline; }
+
+    .hero { padding-top:160px; background:#0b0b0b; text-align:left; }
+    .hero h1 { font-size:3rem; margin-bottom:0.5rem; }
+    .hero h3 { font-size:1.5rem; color:#ff4d00; margin-bottom:1rem; }
+    .hero p { line-height:1.8; font-size:1.1rem; max-width:700px; }
+    .btns { margin-top:30px; }
+    .btns a { background:#ff4d00; padding:10px 20px; color:#fff; font-weight:600; text-decoration:none; margin-right:10px; }
+    .btns a:hover { background:#ff6520; }
+
+    .about { background:#111; color:#eee; }
+    .about-content { display:flex; flex-wrap:wrap; align-items:flex-start; gap:60px; }
+    .about-text { flex:1; min-width:300px; }
+
+    .ksa-section { background:#ff4d00; color:#000; text-align:center; }
+    .graph-container { width:100%; height:500px; background:#0b0f15; border-radius:12px; }
+
+    .projects { background:#0b0b0b; }
+    .project { margin-bottom:50px; border-left:4px solid #ff4d00; padding-left:20px; }
+    .project h3 { color:#ff4d00; }
+
+    .experience { background:#111; }
+    .timeline { border-left:2px solid #ff4d00; padding-left:30px; }
+    .timeline-item { margin-bottom:40px; }
+    .timeline-item h4 { color:#ff4d00; }
+
+    .contact { background:#ff4d00; color:#000; text-align:center; }
+    footer { text-align:center; padding:40px; font-size:0.9rem; color:#777; background:#0b0b0b; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div><strong>PRISM MAKER • CRM</strong></div>
+    <div>
+      <a href="#about">About</a>
+      <a href="#ksa">KSA</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Hyunjin Kim</h1>
+    <h3>CRM Marketing Strategist</h3>
+    <p>데이터로 고객을 이해하고, 경험으로 브랜드를 성장시키는 Prism Maker.<br>
+       고객 여정의 흐름 속에서 문제를 찾고, 데이터를 통해 답을 제시합니다.</p>
+    <p><strong>WE CREATE BUSINESS ELEMENTS TO SPREAD THE IDEAS INSPIRING WELL-BEING.</strong></p>
+    <div class="btns">
+      <a href="#projects">프로젝트 보기</a>
+      <a href="#contact">이력서 다운로드</a>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>About</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p><strong>학력:</strong> 관광경영학 학사 (2017.03 ~ 2024.02)</p>
+        <p><strong>교내 활동:</strong> 단과 학생회 기획집행부장, 감사위원회 사무위원</p>
+        <p><strong>수상:</strong> 한국 스마트 관광콘텐츠 콘테스트 금상, 페이스북 유니버시티 최우수학생상, 아너스클럽 최우수상</p>
+        <p><strong>핵심 소개:</strong><br>학부 시절부터 마케팅 데이터와 고객 행동 분석에 흥미를 느꼈고,<br>실제 브랜드 캠페인 기획과 소비자 데이터 분석 경험을 통해 CRM 실무로 자연스럽게 이어졌습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="ksa" class="ksa-section">
+    <h2>KSA GRAPH (Interactive)</h2>
+    <p>포트폴리오 지식 그래프(3D)를 직접 조작해보세요.</p>
+    <div id="graph" class="graph-container"></div>
+  </section>
+
+  <section id="projects" class="projects">
+    <h2>Projects</h2>
+
+    <div class="project">
+      <h3>CRM Funnel Optimization Project</h3>
+      <p>30일 미구매율 85% → 68% 개선. 세그먼트별 병목 분석 및 리마케팅 캠페인 리디자인.
+      GA4 퍼널 기반 리포트 설계.</p>
+      <p><strong>Tech:</strong> GA4, Excel, CRM Tool</p>
+    </div>
+
+    <div class="project">
+      <h3>Retention Automation Campaign</h3>
+      <p>고객 상태별 자동화 메시지 시나리오 구축. 리텐션율 상승 및 객단가 +59% 달성.</p>
+      <p><strong>Tech:</strong> Kakao Biz, Google Sheets</p>
+    </div>
+
+    <div class="project">
+      <h3>Funnel Re-engagement Strategy</h3>
+      <p>휴면고객 대상 리인게이지먼트 캠페인. 180일 미구매 고객군 재활성화율 12.4% 달성.</p>
+      <p><strong>Tech:</strong> CRM 데이터 분석, 자동화 리마케팅</p>
+    </div>
+
+    <div class="project">
+      <h3>CRM Proposal Consulting</h3>
+      <p>고객사 퍼널 분석 기반 CRM 제안서 제작. Funnel 데이터, 미구매율, 전환율 기반 리포트 설계.</p>
+      <p><strong>Tech:</strong> PowerPoint, GA4</p>
+    </div>
+
+    <div class="project">
+      <h3>Facebook University Honors Project</h3>
+      <p>OTT 브랜드 가상 론칭 마케팅 전략 (HBO MAX). 세분화 모델 및 KPI 설계, 최우수상 수상.</p>
+      <p><strong>Tech:</strong> Facebook Ads, Analytics</p>
+    </div>
+  </section>
+
+  <section id="experience" class="experience">
+    <h2>Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>2024.04 – 2025.05 | Snapcompany · Snappush CRM Team</h4>
+        <p>자사몰 CRM 캠페인 기획 및 성과 분석. 세그먼트별 리텐션 자동화 구축. 전환율 +22%, 객단가 +59% 실적.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>2021 – 2023 | Facebook University / Honors Club</h4>
+        <p>실무형 마케팅 프로젝트 수행 및 소비자 세분화 모델 구축.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p>새로운 CRM 전략과 성장 기회에 대해 이야기하는 것을 즐깁니다.<br>편하게 연락 주세요.</p>
+    <p><strong>Email:</strong> boysangme@gmail.com</p>
+    <p><strong>Instagram:</strong> @Romanticisman</p>
+  </section>
+
+  <footer>
+    © 2025 Prism Maker (Hyunjin Kim). All Rights Reserved.
+  </footer>
+
+  <script>
+    const gData = { nodes: [], links: [] };
+    const categories = {
+      Knowledge: '#0094FF',
+      Skills: '#FF5C00',
+      Abilities: '#00FF85',
+      Experience: '#C77DFF'
+    };
+
+    const dataMap = {
+      Knowledge: ['CRM 전략', '세그먼트 전략', '퍼널 분석', '리텐션 마케팅', 'LTV 관리', 'GA4 분석'],
+      Skills: ['GA4', 'Excel', 'SQL', 'Notion', 'Kakao Biz'],
+      Abilities: ['문제 정의력', '데이터 스토리텔링', '가설 검증', '협업 리더십', '빠른 실행력'],
+      Experience: ['캠페인 운영', '리포트 작성', 'CRM 제안서', '세그먼트 기획']
+    };
+
+    let nodeId = 0;
+    Object.entries(dataMap).forEach(([cat, items]) => {
+      items.forEach(k => {
+        gData.nodes.push({ id: nodeId++, name: k, group: cat, color: categories[cat] });
+      });
+    });
+
+    gData.nodes.forEach(n => {
+      if (Math.random() > 0.5) {
+        const target = gData.nodes[Math.floor(Math.random()*gData.nodes.length)].id;
+        gData.links.push({ source: n.id, target });
+      }
+    });
+
+    const Graph = ForceGraph3D()(document.getElementById('graph'))
+      .graphData(gData)
+      .nodeLabel(node => `${node.group}: ${node.name}`)
+      .nodeAutoColorBy('group')
+      .nodeColor(node => node.color)
+      .linkOpacity(0.3)
+      .backgroundColor('#0b0f15');
+  </script>
+</body>
+</html>
