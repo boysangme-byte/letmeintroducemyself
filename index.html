@@ -355,19 +355,31 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 </section>
   
 <!-- COFFEE -->
-<section id="coffee" class="coffee">
+<section id="coffee" class="coffee" style="padding:120px 6vw 96px;border-bottom:1px solid var(--line)">
   <h2>About Coffee</h2>
-  <div style="text-align:center; margin-top:40px">
-    <img src="./img6.png" alt="커피를 마시는 김현진" 
-         style="max-width:340px; width:100%; height:auto; border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:28px" />
-    <p style="max-width:640px; margin:0 auto; line-height:1.85; color:var(--muted)">
-      커피를 마시는 시간을 정말 좋아합니다. 커피에 대한 호기심이 커져 
-      <strong>바리스타 자격증</strong>을 취득하며 원두의 향과 추출 과정을 연구했습니다.  
-      특히 <strong>핸드드립 커피</strong>를 즐겨 마시며, 직접 원두를 갈고 드립하는 순간의 집중과 여유를 소중히 여깁니다.  
-      가장 좋아하는 커피는 하와이의 <strong>코나 커피</strong>입니다.
-    </p>
+
+  <div class="coffee-flex" style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap;margin-top:40px">
+
+    <!-- 이미지 왼쪽 -->
+    <div class="coffee-img" style="flex:1 1 320px;max-width:420px;display:flex;justify-content:center">
+      <img src="./img6.png" alt="커피를 마시는 김현진" 
+           style="width:100%;height:auto;object-fit:contain;border-radius:var(--radius);box-shadow:var(--shadow)" />
+    </div>
+
+    <!-- 텍스트 오른쪽 -->
+    <div class="coffee-text" style="flex:1 1 400px;max-width:560px">
+      <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">
+        커피를 마시는 시간을 정말 좋아합니다. 커피에 대한 호기심이 커져 
+        <strong>바리스타 자격증</strong>을 취득하며 원두의 향과 추출 과정을 깊이 연구했습니다.<br/><br/>
+        특히 <strong>핸드드립 커피</strong>를 즐겨 마시며, 직접 원두를 갈고 드립하는 과정에서
+        집중과 여유를 배우곤 합니다.<br/>
+        가장 좋아하는 커피는 하와이의 <strong>코나 커피</strong>입니다.
+      </p>
+    </div>
+
   </div>
 </section>
+
 
 <!-- CONTACT -->
 <section id="contact" class="contact">
@@ -506,8 +518,26 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 </script>
+  <!-- html2pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-YcsIPykRZpl1FZ/6sSclzyK/xF7K8nkw+0J7Ntr0vT3AtZb1ZZEqrf4W8AbZLMCw+16lsqncMML2Nd3zHk0kUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+document.querySelector('a[href="./resume.pdf"]').addEventListener('click', function(e){
+  e.preventDefault();
+  const element = document.body;  // 전체 페이지를 PDF로 변환
+  const opt = {
+    margin:       [0.4, 0.4, 0.4, 0.4],   // 여백 (inch 단위)
+    filename:     '김현진_CRM_Portfolio.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save();
+});
+</script>
+
 </body>
 </html>
+
 
 
 
