@@ -430,7 +430,7 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
   <div id="mapDiv" style="width:100%;height:480px;margin-top:80px;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);"></div>
 </section>
 
-<!-- amCharts -->
+<!-- ✅ 올바른 라이브러리 순서 -->
 <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
@@ -438,52 +438,53 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 
 <script>
 am5.ready(function() {
+
+  // 루트 및 테마
   var root = am5.Root.new("mapDiv");
   root.setThemes([am5themes_Animated.new(root)]);
 
+  // 지도 생성
   var chart = root.container.children.push(am5map.MapChart.new(root, {
-    projection: am5map.geoMercator(),
+    projection: am5map.geoNaturalEarth1(), // 자연스러운 구면 투영
     panX: "none",
     panY: "none",
     wheelX: "none",
     wheelY: "none"
   }));
 
+  // 기본 국가 레이어
   var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
     geoJSON: am5geodata_worldLow
   }));
 
-  // 기본 국가 색상
+  // 기본 국가 스타일
   polygonSeries.mapPolygons.template.setAll({
     tooltipText: "{name}",
     interactive: true,
-    fill: am5.color(0xdedede),
+    fill: am5.color(0xe0e0e0),
     stroke: am5.color(0xffffff),
-    strokeWidth: 0.7
+    strokeWidth: 0.6
   });
 
-  // 방문 국가
+  // 방문 국가 리스트
   const visited = ["KR", "JP", "HK", "IT", "MT", "DE", "PL", "GB", "FR", "IE", "IS", "US"];
-  
+
+  // 방문 국가 강조
   polygonSeries.mapPolygons.each(function(polygon) {
     if (visited.includes(polygon.dataItem.get("id"))) {
       polygon.setAll({
-        fill: am5.color(0x5cbdfc),
+        fill: am5.color(0x74c0fc),
         stroke: am5.color(0x007bff),
-        strokeWidth: 1.2,
-        tooltipText: "{name} (Visited)"
+        strokeWidth: 1,
+        tooltipText: "{name} 🌍"
       });
     }
   });
 
-  // 배경색과 경계 조정
-  chart.seriesContainer.set("background", am5.Rectangle.new(root, {
-    fill: am5.color(0xfafafa)
-  }));
-
   chart.appear(1000, 100);
 });
 </script>
+
 
 
 <!-- CONTACT -->
@@ -642,6 +643,7 @@ document.querySelector('a[href="./resume.pdf"]').addEventListener('click', funct
 
 </body>
 </html>
+
 
 
 
