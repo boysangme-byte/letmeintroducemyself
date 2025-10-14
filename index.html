@@ -1,187 +1,341 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PRISM MAKER | CRM Marketing Strategist</title>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/3d-force-graph"></script>
-  <script src="https://unpkg.com/three"></script>
-  <style>
-    body { margin:0; font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif; background:#0b0b0b; color:#fff; overflow-x:hidden; }
-    section { padding:100px 10%; }
-    h1,h2,h3 { font-weight:700; letter-spacing:-0.5px; }
-    nav { position:fixed; top:0; width:100%; background:#ff4d00; padding:15px 5%; display:flex; justify-content:space-between; z-index:1000; }
-    nav a { color:#fff; text-decoration:none; margin:0 12px; font-weight:600; }
-    nav a:hover { text-decoration:underline; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CRM 전략 기획자 | 김현진</title>
 
-    .hero { padding-top:160px; background:#0b0b0b; text-align:left; }
-    .hero h1 { font-size:3rem; margin-bottom:0.5rem; }
-    .hero h3 { font-size:1.5rem; color:#ff4d00; margin-bottom:1rem; }
-    .hero p { line-height:1.8; font-size:1.1rem; max-width:700px; }
-    .btns { margin-top:30px; }
-    .btns a { background:#ff4d00; padding:10px 20px; color:#fff; font-weight:600; text-decoration:none; margin-right:10px; }
-    .btns a:hover { background:#ff6520; }
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- 3D Graph -->
+<script src="https://unpkg.com/three"></script>
+<script src="https://unpkg.com/3d-force-graph"></script>
 
-    .about { background:#111; color:#eee; }
-    .about-content { display:flex; flex-wrap:wrap; align-items:flex-start; gap:60px; }
-    .about-text { flex:1; min-width:300px; }
+<style>
+:root{
+  --bg:#ffffff;
+  --ink:#0a0a0a;
+  --muted:#555555;
+  --line:#d0d0d0;
+}
 
-    .ksa-section { background:#ff4d00; color:#000; text-align:center; }
-    .graph-container { width:100%; height:500px; background:#0b0f15; border-radius:12px; }
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif}
+a{color:var(--ink);text-decoration:none}
+a:hover{text-decoration:underline}
 
-    .projects { background:#0b0b0b; }
-    .project { margin-bottom:50px; border-left:4px solid #ff4d00; padding-left:20px; }
-    .project h3 { color:#ff4d00; }
+nav{
+  position:fixed;top:0;left:0;right:0;height:64px;background:#fff;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 6vw;z-index:1000;
+}
+.brand{font-weight:700;}
+.nav-links a{margin-left:20px;font-weight:600;}
 
-    .experience { background:#111; }
-    .timeline { border-left:2px solid #ff4d00; padding-left:30px; }
-    .timeline-item { margin-bottom:40px; }
-    .timeline-item h4 { color:#ff4d00; }
+section{padding:120px 6vw 96px;border-bottom:1px solid var(--line);}
+h1,h2,h3{margin:0 0 12px 0;letter-spacing:-0.3px}
+h2{font-size:2rem;margin-bottom:28px;font-weight:700}
+h3{font-size:1.2rem}
+p{line-height:1.8;margin:0 0 10px 0}
 
-    .contact { background:#ff4d00; color:#000; text-align:center; }
-    footer { text-align:center; padding:40px; font-size:0.9rem; color:#777; background:#0b0b0b; }
-  </style>
+/* HERO */
+.hero{padding-top:calc(120px + 64px)}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end}
+.type-line{font-size:clamp(28px,4vw,42px);font-weight:700;border-right:2px solid var(--ink);white-space:nowrap;overflow:hidden}
+.hero-sub{color:var(--muted);margin-top:12px;max-width:720px}
+.hero-tag{margin-top:14px;display:inline-block;padding:6px 12px;background:#000;color:#fff;font-weight:700}
+.hero-img-wrap{justify-self:end;width:min(420px,35vw);aspect-ratio:3/4} /* 3:4 고정 */
+.hero-img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);background:transparent;border:none}
+.no-hero{display:none}
+
+/* ABOUT */
+.about p{margin:6px 0}
+.about .muted{color:var(--muted)}
+
+/* KSA GRAPH & SUMMARY */
+.graph-container{
+  width:100%;height:clamp(360px,55vh,560px);
+  border:1px solid var(--line);background:#fff; /* 흰 배경 유지 */
+}
+.ksa-summary{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
+.ksa-card{border:1px solid var(--line);padding:24px}
+.ksa-card h3{margin-bottom:12px}
+.ksa-card ul{list-style:none;margin:0;padding:0}
+.ksa-card li{margin-bottom:8px;color:var(--muted)}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.project{grid-column:span 6;border:1px solid var(--line);padding:20px}
+@media (max-width:980px){.project{grid-column:1/-1}}
+.p-image{width:100%;aspect-ratio:1/1;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;background:#f6f6f6}
+.p-image img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%)}
+.p-image .ph{font-size:12px;color:var(--muted)}
+.no-image{display:none}
+.meta{color:var(--muted);font-size:0.95rem;margin-top:8px}
+
+/* EXPERIENCE */
+.timeline{border-left:2px solid var(--line);padding-left:24px}
+.timeline-item{margin:20px 0}
+.timeline-item p{color:var(--muted)}
+
+/* HOW I WORK */
+.how{background:#f7f7f7}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.how-card{border:1px solid var(--line);background:#fff;padding:20px}
+.how-card h4{margin:0 0 10px;font-size:1.1rem}
+
+/* CONTACT & FOOTER */
+.contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:820px){.contact .grid{grid-template-columns:1fr}}
+.k{color:var(--muted)}
+footer{text-align:center;padding:40px 6vw;color:#888}
+</style>
 </head>
 <body>
-  <nav>
-    <div><strong>PRISM MAKER • CRM</strong></div>
+
+<!-- NAV -->
+<nav>
+  <div class="brand">CRM 전략 기획자</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#ksa">KSA</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#how">How I Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
     <div>
-      <a href="#about">About</a>
-      <a href="#ksa">KSA</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
+      <div id="typeTarget" class="type-line" aria-label="CRM 전략 기획자 김현진 입니다."></div>
+      <p class="hero-sub">
+        데이터로 고객을 이해하고 경험으로 브랜드를 성장시키는 <strong>CRM 전략 기획자 김현진</strong>입니다.<br/>
+        고객 여정의 흐름 속에서 문제를 정의하고, 데이터를 통해 설득력 있는 해법을 제시합니다.
+      </p>
+      <span class="hero-tag">CRM Strategy • Retention • Funnel</span>
     </div>
-  </nav>
+    <figure class="hero-img-wrap">
+      <img class="hero-img" src="./hero.png" alt="김현진 프로필"
+           onerror="this.closest('figure').classList.add('no-hero')"/>
+    </figure>
+  </div>
+</section>
 
-  <section class="hero">
-    <h1>Hyunjin Kim</h1>
-    <h3>CRM Marketing Strategist</h3>
-    <p>데이터로 고객을 이해하고, 경험으로 브랜드를 성장시키는 Prism Maker.<br>
-       고객 여정의 흐름 속에서 문제를 찾고, 데이터를 통해 답을 제시합니다.</p>
-    <p><strong>WE CREATE BUSINESS ELEMENTS TO SPREAD THE IDEAS INSPIRING WELL-BEING.</strong></p>
-    <div class="btns">
-      <a href="#projects">프로젝트 보기</a>
-      <a href="#contact">이력서 다운로드</a>
+<!-- ABOUT -->
+<section id="about" class="about">
+  <h2>About</h2>
+  <p><strong>학력:</strong> 관광경영학 학사 (2017.03 ~ 2024.02)</p>
+  <p><strong>교내 활동:</strong> 단과 학생회 기획집행부장, 감사위원회 사무위원</p>
+  <p><strong>수상:</strong> 한국 스마트 관광콘텐츠 콘테스트 금상, Facebook University 최우수학생상, 아너스클럽 최우수상</p>
+  <p class="muted"><strong>핵심 소개:</strong> 학부 시절부터 마케팅 데이터와 고객 행동 분석에 집중해 왔으며, 실무 캠페인 기획·분석 경험을 바탕으로 세그먼트 전략, 리텐션 자동화, 퍼널 전환 최적화 역량을 확보했습니다.</p>
+</section>
+
+<!-- KSA -->
+<section id="ksa">
+  <h2>KSA Graph</h2>
+  <div id="graph" class="graph-container" role="img" aria-label="KSA 3D Force Graph"></div>
+
+  <!-- KSA SUMMARY (요약 탭) -->
+  <div class="ksa-summary">
+    <div class="ksa-card">
+      <h3># Skills / Certificates</h3>
+      <ul>
+        <li>Google Analytics Certificate (2023.10)</li>
+        <li>사회조사분석사 2급 (SPSS) (2023.09)</li>
+        <li>데이터분석준전문가(ADsP) (2023.06)</li>
+        <li>컴퓨터 활용능력 2급 (2017.12 - 2018.12)</li>
+        <li>MOS Excel & PowerPoint (2017.12 - 2018.12)</li>
+      </ul>
     </div>
-  </section>
+    <div class="ksa-card">
+      <h3># Activities</h3>
+      <ul>
+        <li>Kb국민은행 디지털 서포터즈 (2021.12 - 2022.03)<br>• 은행 금융 서비스 홍보 콘텐츠 기획 및 현장 서비스</li>
+        <li>인천 영 MICE 리더 6기 (2021.06 - 2021.12)<br>• MICE 산업 홍보 프로젝트 기획</li>
+        <li>(주)코스콤 시장전략부 사무보조 (2021.06 - 2021.08)<br>• 자사주 데이터 공시 관련 고객사 안내 및 계약 집행</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-  <section id="about" class="about">
-    <h2>About</h2>
-    <div class="about-content">
-      <div class="about-text">
-        <p><strong>학력:</strong> 관광경영학 학사 (2017.03 ~ 2024.02)</p>
-        <p><strong>교내 활동:</strong> 단과 학생회 기획집행부장, 감사위원회 사무위원</p>
-        <p><strong>수상:</strong> 한국 스마트 관광콘텐츠 콘테스트 금상, 페이스북 유니버시티 최우수학생상, 아너스클럽 최우수상</p>
-        <p><strong>핵심 소개:</strong><br>학부 시절부터 마케팅 데이터와 고객 행동 분석에 흥미를 느꼈고,<br>실제 브랜드 캠페인 기획과 소비자 데이터 분석 경험을 통해 CRM 실무로 자연스럽게 이어졌습니다.</p>
+<!-- PROJECTS -->
+<section id="projects" class="projects">
+  <h2>Projects</h2>
+  <div class="projects-grid">
+
+    <!-- 1 -->
+    <article class="project">
+      <div class="p-image">
+        <img src="./img1.png" alt="CRM Funnel Optimization Project"
+             onerror="this.parentElement.classList.add('no-image')"/>
+        <span class="ph">img1.png</span>
       </div>
-    </div>
-  </section>
-
-  <section id="ksa" class="ksa-section">
-    <h2>KSA GRAPH (Interactive)</h2>
-    <p>포트폴리오 지식 그래프(3D)를 직접 조작해보세요.</p>
-    <div id="graph" class="graph-container"></div>
-  </section>
-
-  <section id="projects" class="projects">
-    <h2>Projects</h2>
-
-    <div class="project">
       <h3>CRM Funnel Optimization Project</h3>
-      <p>30일 미구매율 85% → 68% 개선. 세그먼트별 병목 분석 및 리마케팅 캠페인 리디자인.
-      GA4 퍼널 기반 리포트 설계.</p>
-      <p><strong>Tech:</strong> GA4, Excel, CRM Tool</p>
-    </div>
+      <p>30일 미구매율 <strong>85% → 68%</strong> 개선. 병목 지점을 세그먼트별로 재정의하고 리마케팅 플로우를 전면 재설계했습니다.</p>
+      <p>GA4 기반 퍼널 리포트를 커스텀 이벤트로 구성해 <strong>이탈 전환 트리거</strong>를 도출, 메시지 타이밍·빈도를 AB테스트로 최적화했습니다.</p>
+      <p>이 결과, 재방문 대비 구매 전환이 단계별로 상승하며 <strong>탐색→장바구니</strong> 구간 전환율이 가장 크게 개선되었습니다.</p>
+      <div class="meta">Tech: GA4, Excel, CRM Tool</div>
+    </article>
 
-    <div class="project">
+    <!-- 2 -->
+    <article class="project">
+      <div class="p-image">
+        <img src="./img2.png" alt="Retention Automation Campaign"
+             onerror="this.parentElement.classList.add('no-image')"/>
+        <span class="ph">img2.png</span>
+      </div>
       <h3>Retention Automation Campaign</h3>
-      <p>고객 상태별 자동화 메시지 시나리오 구축. 리텐션율 상승 및 객단가 +59% 달성.</p>
-      <p><strong>Tech:</strong> Kakao Biz, Google Sheets</p>
-    </div>
+      <p>고객 상태(신규·활성·이탈징후·휴면)에 따른 <strong>메시지 시나리오</strong>를 자동화하여 리텐션 지표를 구조적으로 개선했습니다.</p>
+      <p>장바구니 미결제·관심 카테고리 기반 <strong>퍼스널라이즈드 카피</strong>와 딥링크를 활용, 객단가 <strong>+59%</strong>를 달성했습니다.</p>
+      <p>자동화 롤백 룰과 빈도 캡핑을 병행해 <strong>피로도 최소화</strong>와 수익성 균형을 확보했습니다.</p>
+      <div class="meta">Tech: Kakao Biz, Google Sheets</div>
+    </article>
 
-    <div class="project">
+    <!-- 3 -->
+    <article class="project">
+      <div class="p-image">
+        <img src="./img3.png" alt="Funnel Re-engagement Strategy"
+             onerror="this.parentElement.classList.add('no-image')"/>
+        <span class="ph">img3.png</span>
+      </div>
       <h3>Funnel Re-engagement Strategy</h3>
-      <p>휴면고객 대상 리인게이지먼트 캠페인. 180일 미구매 고객군 재활성화율 12.4% 달성.</p>
-      <p><strong>Tech:</strong> CRM 데이터 분석, 자동화 리마케팅</p>
-    </div>
+      <p>휴면 전환 임계치(≥180일)를 기준으로 <strong>재활성 세그먼트</strong>를 재정의하고, 콘텐츠·혜택·타이밍을 웨이브 형태로 설계했습니다.</p>
+      <p>장기 휴면군의 장벽을 낮추기 위해 <strong>저관여 액션</strong>(관심상품 저장, 톡 알림 구독)을 도입하여 단계적 복귀를 유도했습니다.</p>
+      <p>캠페인 전체 재활성화율 <strong>12.4%</strong>, 이후 코호트의 반복 구매율이 유의미하게 상승했습니다.</p>
+      <div class="meta">Tech: CRM 데이터 분석, 자동화 리마케팅</div>
+    </article>
 
-    <div class="project">
+    <!-- 4 -->
+    <article class="project">
+      <div class="p-image">
+        <img src="./img4.png" alt="CRM Proposal Consulting"
+             onerror="this.parentElement.classList.add('no-image')"/>
+        <span class="ph">img4.png</span>
+      </div>
       <h3>CRM Proposal Consulting</h3>
-      <p>고객사 퍼널 분석 기반 CRM 제안서 제작. Funnel 데이터, 미구매율, 전환율 기반 리포트 설계.</p>
-      <p><strong>Tech:</strong> PowerPoint, GA4</p>
-    </div>
+      <p>고객사 퍼널·미구매율·전환율 데이터를 통합해 <strong>경영 관점의 인사이트</strong>와 실행 우선순위를 제시했습니다.</p>
+      <p>0~30일·30~90일·180일+ 구간별로 <strong>전술·메시지·리소스</strong> 배분안을 수립, 의사결정 속도를 단축했습니다.</p>
+      <p>내부 이해관계자 협업을 위한 <strong>대시보드 프로토타입</strong>을 제공해 실무 적용을 가속했습니다.</p>
+      <div class="meta">Tech: PowerPoint, GA4</div>
+    </article>
 
-    <div class="project">
+    <!-- 5 -->
+    <article class="project">
+      <div class="p-image">
+        <img src="./img5.png" alt="Facebook University Honors Project"
+             onerror="this.parentElement.classList.add('no-image')"/>
+        <span class="ph">img5.png</span>
+      </div>
       <h3>Facebook University Honors Project</h3>
-      <p>OTT 브랜드 가상 론칭 마케팅 전략 (HBO MAX). 세분화 모델 및 KPI 설계, 최우수상 수상.</p>
-      <p><strong>Tech:</strong> Facebook Ads, Analytics</p>
+      <p>OTT 브랜드(HBO MAX) 가상 론칭을 위해 <strong>세분화 모델·KPI</strong>를 설계하고 채널 믹스를 최적화했습니다.</p>
+      <p>퍼널 단계별 CPA/ROAS 목표를 재정의, 초기 구독 확보와 <strong>롱테일 리텐션</strong>의 균형을 맞춘 전략으로 최우수상을 수상했습니다.</p>
+      <p>광고 크리에이티브-세그먼트 매칭을 통해 <strong>도달 대비 전환효율</strong>을 개선했습니다.</p>
+      <div class="meta">Tech: Facebook Ads, Analytics</div>
+    </article>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="experience">
+  <h2>Experience</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>2024.04 – 2025.05 | Snapcompany · Snappush CRM Team</h4>
+      <p>자사몰 CRM 캠페인 기획 및 성과 분석. 세그먼트별 리텐션 자동화 구축. 전환율 +22%, 객단가 +59%.</p>
     </div>
-  </section>
-
-  <section id="experience" class="experience">
-    <h2>Experience</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <h4>2024.04 – 2025.05 | Snapcompany · Snappush CRM Team</h4>
-        <p>자사몰 CRM 캠페인 기획 및 성과 분석. 세그먼트별 리텐션 자동화 구축. 전환율 +22%, 객단가 +59% 실적.</p>
-      </div>
-      <div class="timeline-item">
-        <h4>2021 – 2023 | Facebook University / Honors Club</h4>
-        <p>실무형 마케팅 프로젝트 수행 및 소비자 세분화 모델 구축.</p>
-      </div>
+    <div class="timeline-item">
+      <h4>2021 – 2023 | Facebook University / Honors Club</h4>
+      <p>실무형 마케팅 프로젝트 수행 및 소비자 세분화 모델 구축.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="contact" class="contact">
-    <h2>Contact</h2>
-    <p>새로운 CRM 전략과 성장 기회에 대해 이야기하는 것을 즐깁니다.<br>편하게 연락 주세요.</p>
-    <p><strong>Email:</strong> boysangme@gmail.com</p>
-    <p><strong>Instagram:</strong> @Romanticisman</p>
-  </section>
+<!-- HOW I WORK -->
+<section id="how" class="how">
+  <h2>How I Work</h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <h4>Work Style</h4>
+      <p>어려운 상황에서도 긍정적 태도를 유지하고, 문제보다 해결에 집중합니다.</p>
+    </div>
+    <div class="how-card">
+      <h4>Communication</h4>
+      <p>목표 정렬을 우선으로 팀과 적극 소통하며, 협업 속도를 높입니다.</p>
+    </div>
+    <div class="how-card">
+      <h4>Execution</h4>
+      <p>마감 준수와 실행력에 집중하고, 프로세스를 반복 개선합니다.</p>
+    </div>
+    <div class="how-card">
+      <h4>Responsibility</h4>
+      <p>결과 품질과 일관성에 책임을 지고 스스로 점검합니다.</p>
+    </div>
+    <div class="how-card">
+      <h4>Feedback</h4>
+      <p>객관적 피드백을 겸손히 수용하고 다음 스프린트 개선으로 연결합니다.</p>
+    </div>
+    <div class="how-card">
+      <h4>Growth Mindset</h4>
+      <p>배움과 성장을 습관화하여 최선의 결과를 만듭니다.</p>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    © 2025 Prism Maker (Hyunjin Kim). All Rights Reserved.
-  </footer>
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <h2>Contact</h2>
+  <div class="grid">
+    <div>
+      <p>새로운 CRM 전략과 성장 기회에 대해 이야기하는 것을 즐깁니다. 편하게 연락 주세요.</p>
+    </div>
+    <div>
+      <p class="k"><strong>Email</strong>  boysangme@gmail.com</p>
+      <p class="k"><strong>Instagram</strong>  @Romanticisman</p>
+      <p class="k"><strong>Resume</strong>  resume.pdf</p>
+    </div>
+  </div>
+</section>
 
-  <script>
-    const gData = { nodes: [], links: [] };
-    const categories = {
-      Knowledge: '#0094FF',
-      Skills: '#FF5C00',
-      Abilities: '#00FF85',
-      Experience: '#C77DFF'
-    };
+<footer>© 2025 김현진. All Rights Reserved.</footer>
 
-    const dataMap = {
-      Knowledge: ['CRM 전략', '세그먼트 전략', '퍼널 분석', '리텐션 마케팅', 'LTV 관리', 'GA4 분석'],
-      Skills: ['GA4', 'Excel', 'SQL', 'Notion', 'Kakao Biz'],
-      Abilities: ['문제 정의력', '데이터 스토리텔링', '가설 검증', '협업 리더십', '빠른 실행력'],
-      Experience: ['캠페인 운영', '리포트 작성', 'CRM 제안서', '세그먼트 기획']
-    };
+<script>
+/* Typewriter */
+(function(){
+  const el=document.getElementById('typeTarget');
+  const text='CRM 전략 기획자 김현진 입니다.'; let i=0;
+  const speed=55;
+  function type(){ if(i<=text.length){ el.textContent=text.slice(0,i); i++; setTimeout(type,speed); } else { el.style.borderRight='none'; } }
+  type();
+})();
 
-    let nodeId = 0;
-    Object.entries(dataMap).forEach(([cat, items]) => {
-      items.forEach(k => {
-        gData.nodes.push({ id: nodeId++, name: k, group: cat, color: categories[cat] });
-      });
-    });
+/* KSA Graph (비율 안정 + 리사이즈) */
+const categories={ Knowledge:'#000000', Skills:'#333333', Abilities:'#555555', Experience:'#777777' };
+const dataMap={
+  Knowledge:['CRM 전략','세그먼트 전략','퍼널 분석','리텐션 마케팅','LTV 관리','GA4 분석'],
+  Skills:['GA4','Excel','SQL','Notion','Kakao Biz'],
+  Abilities:['문제 정의력','데이터 스토리텔링','가설 검증','협업 리더십','빠른 실행력'],
+  Experience:['캠페인 운영','리포트 작성','CRM 제안서','세ग먼트 기획']
+};
+const gData={nodes:[],links:[]}; let nodeId=0;
+Object.entries(dataMap).forEach(([cat,items])=>items.forEach(name=>gData.nodes.push({id:nodeId++,name,group:cat,color:categories[cat]})));
+gData.nodes.forEach(n=>{ if(Math.random()>0.45){ const t=gData.nodes[Math.floor(Math.random()*gData.nodes.length)].id; gData.links.push({source:n.id,target:t}); }});
+const graphEl=document.getElementById('graph');
+const Graph=ForceGraph3D()(graphEl)
+  .graphData(gData)
+  .nodeLabel(n=>`${n.group}: ${n.name}`)
+  .nodeColor(n=>n.color)
+  .linkOpacity(0.25)
+  .backgroundColor('#ffffff');
+function fitGraph(){ const r=graphEl.getBoundingClientRect(); Graph.width(r.width); Graph.height(r.height); }
+window.addEventListener('resize', fitGraph); fitGraph();
 
-    gData.nodes.forEach(n => {
-      if (Math.random() > 0.5) {
-        const target = gData.nodes[Math.floor(Math.random()*gData.nodes.length)].id;
-        gData.links.push({ source: n.id, target });
-      }
-    });
-
-    const Graph = ForceGraph3D()(document.getElementById('graph'))
-      .graphData(gData)
-      .nodeLabel(node => `${node.group}: ${node.name}`)
-      .nodeAutoColorBy('group')
-      .nodeColor(node => node.color)
-      .linkOpacity(0.3)
-      .backgroundColor('#0b0f15');
-  </script>
+/* 프로젝트 이미지 없는 경우 플레이스홀더 숨김 */
+document.querySelectorAll('.p-image img').forEach(img=>{
+  img.addEventListener('error', ()=> img.parentElement.classList.add('no-image'));
+});
+</script>
 </body>
 </html>
