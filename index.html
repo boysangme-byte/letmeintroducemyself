@@ -225,10 +225,47 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
     <div class="graph-loading">3D 그래프 로딩 중...</div>
   </div>
 
-  <div class="ksa-summary">
-    <div class="ksa-card">
-      <h3># Skills / Certificates</h3>
-      <ul>
+  <!-- 🧠 KSA 요약 카드 -->
+  <div class="ksa-summary" style="margin:60px auto 100px; max-width:950px;">
+    <h3 style="font-size:clamp(26px,3vw,32px); font-weight:700; text-align:center; margin-bottom:40px;">
+      KSA Summary
+    </h3>
+
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:24px;">
+      <!-- Knowledge -->
+      <div style="flex:1 1 280px; background:#fff; border-radius:16px; box-shadow:0 3px 10px rgba(0,0,0,0.08); padding:28px;">
+        <h4 style="font-size:20px; font-weight:600; margin-bottom:10px; color:#1e6091;">Knowledge</h4>
+        <p style="font-size:16px; color:#555; line-height:1.7;">
+          CRM 전략, 세그먼트 마케팅, 퍼널 분석 등 고객 데이터를<br/>
+          기반으로 한 전략적 사고와 분석 지식을 습득했습니다.
+        </p>
+      </div>
+
+      <!-- Skill -->
+      <div style="flex:1 1 280px; background:#fff; border-radius:16px; box-shadow:0 3px 10px rgba(0,0,0,0.08); padding:28px;">
+        <h4 style="font-size:20px; font-weight:600; margin-bottom:10px; color:#1e6091;">Skill</h4>
+        <p style="font-size:16px; color:#555; line-height:1.7;">
+          SQL, Salesforce, 데이터 시각화 등 실무 중심의 기술을<br/>
+          활용하여 CRM 퍼널 개선과 리텐션 전략을 수립했습니다.
+        </p>
+      </div>
+
+      <!-- Ability -->
+      <div style="flex:1 1 280px; background:#fff; border-radius:16px; box-shadow:0 3px 10px rgba(0,0,0,0.08); padding:28px;">
+        <h4 style="font-size:20px; font-weight:600; margin-bottom:10px; color:#1e6091;">Ability</h4>
+        <p style="font-size:16px; color:#555; line-height:1.7;">
+          고객의 행동 데이터를 읽고 브랜드 감성에 맞는<br/>
+          맞춤 CRM 전략을 기획·실행하는 역량을 보유했습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🎓 Certificates & Activities -->
+  <div class="ksa-detail" style="display:flex; flex-wrap:wrap; justify-content:center; gap:24px; max-width:950px; margin:0 auto 100px;">
+    <div class="ksa-card" style="flex:1 1 420px; background:#fff; border-radius:16px; box-shadow:0 3px 10px rgba(0,0,0,0.08); padding:28px;">
+      <h3 style="font-size:22px; font-weight:700; margin-bottom:16px;"># Skills / Certificates</h3>
+      <ul style="line-height:1.8; color:#555; margin:0; padding-left:18px;">
         <li>Google Analytics Certificate (2023.10)</li>
         <li>사회조사분석사 2급 (SPSS) (2023.09)</li>
         <li>데이터분석준전문가(ADsP) (2023.06)</li>
@@ -236,16 +273,18 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
         <li>MOS Excel & PowerPoint</li>
       </ul>
     </div>
-    <div class="ksa-card">
-      <h3># Activities</h3>
-      <ul>
-        <li>Kb국민은행 디지털 서포터즈 (2021.12 - 2022.03)<br>• 은행 금융 서비스 홍보 콘텐츠 기획 및 현장 서비스</li>
+
+    <div class="ksa-card" style="flex:1 1 420px; background:#fff; border-radius:16px; box-shadow:0 3px 10px rgba(0,0,0,0.08); padding:28px;">
+      <h3 style="font-size:22px; font-weight:700; margin-bottom:16px;"># Activities</h3>
+      <ul style="line-height:1.8; color:#555; margin:0; padding-left:18px;">
+        <li>Kb국민은행 디지털 서포터즈 (2021.12 - 2022.03)<br>• 금융 서비스 홍보 콘텐츠 기획 및 현장 서비스</li>
         <li>인천 영 MICE 리더 6기 (2021.06 - 2021.12)<br>• MICE 산업 홍보 프로젝트 기획</li>
         <li>(주)코스콤 시장전략부 사무보조 (2021.06 - 2021.08)<br>• 자사주 데이터 공시 관련 고객사 안내 및 계약 집행</li>
       </ul>
     </div>
   </div>
 </section>
+
 
 <!-- PROJECTS -->
 <section id="projects" class="projects">
@@ -433,9 +472,8 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
   <h2 style="font-size:clamp(32px,4vw,42px); font-weight:700; margin-bottom:40px;">About Work</h2>
 
   <!-- 1️⃣ Intro -->
-  <p style="font-size:clamp(18px,1.5vw,22px); line-height:1.9; color:var(--muted); max-width:800px;">
-    데이터를 통해 고객의 행동을 이해하고, 감성적인 연결로 브랜드 충성도를 높이는 CRM 전략을 만들어갑니다.<br><br>
-    퍼널 분석과 세그먼트 기반 메시지 전략을 중심으로, 브랜드의 <strong>재구매율 향상</strong>과 <strong>리텐션 자동화</strong>를 실현했습니다.
+  <p style="font-size:clamp(18px,1.5vw,22px); line-height:1.9; color:var(--muted); max-width:800px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+    데이터를 통해 고객의 행동을 이해하고, 감성적인 연결로 브랜드 충성도를 높이는 CRM 전략을 만들어갑니다. 퍼널 분석과 세그먼트 기반 메시지 전략을 중심으로, 브랜드의 <strong>재구매율 향상</strong>과 <strong>리텐션 자동화</strong>를 실현했습니다.
   </p>
 
   <!-- 2️⃣ Performance Chart -->
@@ -445,34 +483,24 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 
   <!-- 3️⃣ Strength Cards -->
   <div class="work-strengths" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center; margin-top:40px;">
-    <div style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px;">
+    <div style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
       <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">데이터 분석 기반 인사이트</h3>
-      <p style="color:#666; line-height:1.7;">
-        7~365일 미구매 방문자 데이터를 기반으로 전환 흐름을 분석하고<br/>
-        주요 정체 구간을 발견하여 CRM 타이밍 전략을 수립했습니다.
-      </p>
+      <p style="color:#666; line-height:1.7;">7~365일 미구매 방문자 데이터를 기반으로 전환 흐름을 분석하고 주요 정체 구간을 발견하여 CRM 타이밍 전략을 수립했습니다.</p>
     </div>
-    <div style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px;">
+    <div style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
       <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">세그먼트 전략 설계</h3>
-      <p style="color:#666; line-height:1.7;">
-        고객 상태(미구매·이탈·활성)와 행동 이력을 결합한 세그먼트 설계로<br/>
-        상황별 리마케팅 메시지와 빈도 최적화를 구현했습니다.
-      </p>
+      <p style="color:#666; line-height:1.7;">고객 상태(미구매·이탈·활성)와 행동 이력을 결합한 세그먼트 설계로 상황별 리마케팅 메시지와 빈도 최적화를 구현했습니다.</p>
     </div>
-    <div style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px;">
+    <div style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
       <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">CRM 자동화 및 리텐션 개선</h3>
-      <p style="color:#666; line-height:1.7;">
-        캠페인 자동화 플로우를 구축하여 고객 여정의 핵심 구간을 자동으로 연결하고,<br/>
-        180일 이상 장기 휴면 고객의 재활성화를 유도했습니다.
-      </p>
+      <p style="color:#666; line-height:1.7;">캠페인 자동화 플로우를 구축하여 고객 여정의 핵심 구간을 자동으로 연결하고, 180일 이상 장기 휴면 고객의 재활성화를 유도했습니다.</p>
     </div>
   </div>
 
   <!-- 4️⃣ Highlight Metric -->
-  <div style="text-align:center; margin-top:80px;">
+  <div style="text-align:center; margin-top:80px; white-space:nowrap;">
     <p style="font-size:clamp(18px,1.5vw,22px); color:#333; font-weight:500;">
-      “리인게이지먼트 캠페인으로 180일 미구매율 <strong>60.1% → 58.6%</strong> 개선”<br/>
-      “30일 미구매율 <strong>85% → 68%</strong> 달성”
+      “리인게이지먼트 캠페인으로 180일 미구매율 <strong>60.1% → 58.6%</strong> 개선” “30일 미구매율 <strong>85% → 68%</strong> 달성”
     </p>
   </div>
 </section>
@@ -512,6 +540,7 @@ new Chart(ctx, {
   }
 });
 </script>
+
 
 <!-- CONTACT -->
 <section id="contact" class="contact">
@@ -669,6 +698,7 @@ document.querySelector('a[href="./resume.pdf"]').addEventListener('click', funct
 
 </body>
 </html>
+
 
 
 
