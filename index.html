@@ -4,26 +4,45 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CRM 전략 기획자 | 김현진</title>
+<meta name="description" content="CRM 전략 기획자 김현진 — 데이터 기반 세그먼트 전략과 리텐션 자동화로 성장을 설계합니다." />
+<link rel="canonical" href="https://example.com/" />
 
-<!-- Fonts: LMNT 무드(각진/모던) -->
+<!-- Open Graph / Twitter (공유 메타) -->
+<meta property="og:title" content="CRM 전략 기획자 | 김현진" />
+<meta property="og:description" content="데이터로 고객을 이해하고 경험으로 브랜드를 성장시키는 CRM 전략 기획자." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://example.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Fonts Preconnect + Display Swap -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
 
-<!-- 3D Graph (검증 호환 버전 고정) -->
-<script src="https://unpkg.com/three@0.150.1/build/three.min.js" defer></script>
-<script src="https://unpkg.com/3d-force-graph@1.70.12/dist/3d-force-graph.min.js" defer></script>
+<!-- Preload Hero Image (LCP) -->
+<link rel="preload" as="image" href="./hero.png" />
 
 <style>
 :root{
   --bg:#ffffff; --ink:#111; --muted:#666; --line:#ddd; --hover:#f5f5f5; --accent:#111;
   --radius:0; /* 각진 */
   --shadow:0 10px 28px rgba(0,0,0,.06);
+  --focus:#0ea5e9; /* 포커스 링 */
 }
 [data-theme="dark"]{
   --bg:#0c0c0c; --ink:#f6f6f6; --muted:#a0a0a0; --line:#272727; --hover:#141414; --accent:#f6f6f6;
   --shadow:0 10px 28px rgba(255,255,255,.05);
 }
+/* Paper wash 모드 지원(원 톤 유지, 선택적) */
+[data-theme="paper"]{
+  --bg:#fafaf7; --ink:#111; --muted:#6a6a6a; --line:#e7e7e0; --hover:#f3f3ef; --accent:#202020;
+  --shadow:none; --radius:0;
+}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Space Grotesk','Noto Sans KR',system-ui,sans-serif;letter-spacing:-.01em;overflow-x:hidden}
+/* 포커스 가시화 */
+:focus-visible{outline:2px solid var(--focus); outline-offset:2px; border-radius:2px}
+
 a{color:var(--ink);text-decoration:none}
 a:hover{text-decoration:underline}
 
@@ -36,89 +55,46 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;background:var(
 .theme-toggle{background:none;border:1px solid var(--line);width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 
 /* SECTION */
-section{padding:120px 6vw 96px;border-bottom:1px solid var(--line)}
+section{padding:120px 6vw 96px;border-bottom:1px solid var(--line);content-visibility:auto;contain-intrinsic-size: 1px 1000px}
 h2{margin:0 0 22px 0;font-size:clamp(26px,3vw,36px);font-weight:800}
 
 /* HERO */
-.hero{
-  padding-top:calc(120px + 64px);
-  min-height:88vh;
-  display:grid;
-  grid-template-columns:1.3fr 1fr;
-  gap:40px;
-  align-items:end;
-}
-@media (max-width:980px){
-  .hero{grid-template-columns:1fr}
-}
+.hero{padding-top:calc(120px + 64px);min-height:88vh;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:end}
+@media (max-width:980px){.hero{grid-template-columns:1fr}}
 
-.type-line{
-  font-size:clamp(28px,4vw,42px);
-  font-weight:900;
-  border-right:2px solid var(--ink);
-  white-space:nowrap;
-  overflow:hidden;
-}
+.type-line{font-size:clamp(28px,4vw,42px);font-weight:900;border-right:2px solid var(--ink);white-space:nowrap;overflow:hidden}
+.hero-sub{color:var(--muted);max-width:760px;line-height:1.8}
+.hero-tag{display:inline-block;margin-top:14px;padding:8px 12px;background:var(--ink);color:var(--bg);font-weight:800;border:1px solid var(--line);border-radius:var(--radius)}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-block;padding:12px 16px;font-weight:800;border:1px solid var(--line);border-radius:var(--radius)}
+.btn-primary{background:var(--ink);color:var(--bg)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn:hover{text-decoration:none;filter:brightness(.95)}
 
-.hero-sub{
-  color:var(--muted);
-  max-width:760px;
-  line-height:1.8;
-}
-
-.hero-tag{
-  display:inline-block;
-  margin-top:14px;
-  padding:8px 12px;
-  background:var(--ink);
-  color:var(--bg);
-  font-weight:800;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-}
-
-.hero-img-wrap{
-  justify-self:end;
-  align-self:center;
-  width:min(520px,38vw);
-  max-height:none;          /* ✅ 자르지 않음 */
-  overflow:visible;         /* ✅ 확대 영역 확보 */
-}
-
-.hero-img{
-  display:block;
-  width:100%;
-  height:auto;              
-  object-fit:contain;       
-  filter:grayscale(100%);
-  transition:transform .25s ease, filter .25s ease;
-  will-change:transform;     /* ✅ 렌더링 최적화 */
-}
-
+.hero-img-wrap{justify-self:end;align-self:center;width:min(520px,38vw);max-height:none;overflow:visible}
+.hero-img{display:block;width:100%;height:auto;object-fit:contain;filter:grayscale(100%);transition:transform .25s ease, filter .25s ease;will-change:transform}
 /* 데스크톱 전용 Hover 확대 효과 */
 @media (hover:hover) and (pointer:fine){
-  .hero-img:hover{
-    transform:scale(1.05);   /* ✨ 살짝 확대 */
-    filter:grayscale(0%);
-    transform-origin:center;
-  }
+  .hero-img:hover{transform:scale(1.05);filter:grayscale(0%);transform-origin:center}
 }
 
-  
-/* 비(숫자 1) — 전역 오버레이 */
+/* 전역 숫자 1 비 */
 .rain{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;overflow:hidden;z-index:500}
 .drop{position:absolute;top:-10vh;font-weight:900;color:var(--line);opacity:.38;font-size:clamp(12px,1.2vw,18px);line-height:1;animation:fall linear infinite}
 @keyframes fall{0%{transform:translateY(0)}100%{transform:translateY(110vh)}}
 
+/* 카드 공통(다크/페이퍼 호환) */
+.card{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+
 /* KSA */
 .graph-container{width:100%;height:clamp(360px,55vh,560px);border:1px solid var(--line);background:var(--bg);box-shadow:var(--shadow);border-radius:var(--radius);position:relative;overflow:hidden}
-.graph-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--muted);font-size:14px}
+.graph-loading{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);color:var(--muted);font-size:14px}
 .ksa-summary{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
 @media (max-width:900px){.ksa-summary{grid-template-columns:1fr}}
 .ksa-card{border:1px solid var(--line);padding:20px;background:var(--bg);border-radius:var(--radius)}
 .ksa-card h3{margin:0 0 10px 0}
 
-/* PROJECTS (이미지 미리보기 유지) */
+/* PROJECTS */
 .projects-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
 .project{grid-column:span 6;border:1px solid var(--line);padding:18px;background:var(--bg);border-radius:var(--radius);box-shadow:none;transition:transform .15s, box-shadow .15s}
 .project:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
@@ -128,11 +104,11 @@ h2{margin:0 0 22px 0;font-size:clamp(26px,3vw,36px);font-weight:800}
 .project:hover .p-image img{filter:grayscale(0%)}
 .p-image img[src] + .ph{display:none}
 .p-image .ph{position:absolute;left:10px;bottom:10px;font-size:12px;color:var(--muted);background:rgba(255,255,255,.75);padding:5px 7px;border:1px solid var(--line);border-radius:var(--radius)}
-/* 이미지 에러 시 프레임 유지 */
 .no-image{display:flex}
 .no-image img{display:none}
 .no-image .ph{display:block}
 .meta{color:var(--muted);font-size:.95rem;margin-top:8px}
+.badge{position:absolute;right:10px;top:10px;padding:6px 8px;font-size:12px;font-weight:800;background:var(--bg);color:var(--ink);border:1px solid var(--line)}
 
 /* TIMELINE / HOW */
 .timeline{border-left:2px solid var(--line);padding-left:24px}
@@ -149,7 +125,7 @@ h2{margin:0 0 22px 0;font-size:clamp(26px,3vw,36px);font-weight:800}
 .k{color:var(--muted)}
 footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px solid var(--line)}
 
-/* 모바일 메뉴(간단) */
+/* 모바일 메뉴 */
 .mobile-menu-btn{display:none}
 @media (max-width:900px){
   .nav-links{display:none}
@@ -158,9 +134,30 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
   .mobile-nav.active{transform:translateY(0)}
   .mobile-nav a{display:block;padding:14px 6vw;border-top:1px solid var(--line)}
 }
+
+/* 접근성: 모션 감소 */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition:none !important}
+  .rain{display:none}
+}
+</style>
+<style>
+/* ===== Scroll Reveal (스르륵 등장) ===== */
+.reveal{opacity:0; transform:translate3d(0,12px,0); transition:opacity .6s ease, transform .6s ease; will-change:opacity,transform}
+.reveal.in-view{opacity:1; transform:none}
+.reveal-up{transform:translate3d(0,16px,0)}
+.reveal-down{transform:translate3d(0,-16px,0)}
+.reveal-left{transform:translate3d(16px,0,0)}
+.reveal-right{transform:translate3d(-16px,0,0)}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1 !important; transform:none !important; transition:none !important}
+}
 </style>
 </head>
 <body>
+
+<!-- 시맨틱 H1 (시각 노출) -->
+<h1 class="visually-hidden" style="position:absolute;left:-9999px">CRM 전략 기획자 | 김현진</h1>
 
 <!-- 전역 비(숫자 1) -->
 <div class="rain" id="rain" aria-hidden="true"></div>
@@ -168,7 +165,7 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 <!-- NAV -->
 <nav>
   <div class="brand">Hyunjin Kim | CRM Strategy Designer</div>
-  <div class="nav-links">
+  <div class="nav-links" role="navigation" aria-label="주요 섹션 이동">
     <a href="#home" class="active">Home</a>
     <a href="#about">About</a>
     <a href="#ksa">KSA</a>
@@ -178,11 +175,11 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
     <a href="#contact">Contact</a>
   </div>
   <div style="display:flex;gap:12px;align-items:center">
-    <button class="theme-toggle" id="themeToggle" aria-label="다크모드 토글">🌙</button>
-    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴">≡</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 토글" aria-pressed="false">🌙</button>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴" aria-controls="mobileNav" aria-expanded="false">≡</button>
   </div>
 </nav>
-<div class="mobile-nav" id="mobileNav">
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="모바일 내비">
   <a href="#home">Home</a><a href="#about">About</a><a href="#ksa">KSA</a>
   <a href="#projects">Projects</a><a href="#experience">Experience</a>
   <a href="#how">How I Work</a><a href="#contact">Contact</a>
@@ -197,13 +194,14 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
       고객 여정의 흐름 속에서 문제를 정의하고, 데이터를 통해 설득력 있는 해법을 제시합니다.
     </p>
     <span class="hero-tag">Reading the Flow, Not Just the Numbers</span>
-    <p class="hero-sub" style="margin-top:10px">
-      CRM은 단순한 리텐션이 아니라, 고객과 브랜드의 관계를 디자인하는 일입니다. 그 여정을 함께합니다.
-    </p>
+    <p class="hero-sub" style="margin-top:10px">CRM은 단순한 리텐션이 아니라, 고객과 브랜드의 관계를 디자인하는 일입니다. 그 여정을 함께합니다.</p>
+    <div class="hero-cta">
+      <a href="./resume.pdf" class="btn btn-primary" id="resumeBtn">이력서(PDF) 보기</a>
+      <a href="mailto:boysangme@gmail.com" class="btn btn-ghost">이메일로 연락하기</a>
+    </div>
   </div>
   <figure class="hero-img-wrap">
-    <!-- 원본 파일명 유지 -->
-    <img class="hero-img" src="./hero.png" alt="김현진 프로필" onerror="this.closest('figure').style.display='none'" />
+    <img class="hero-img" src="./hero.png" width="520" height="520" alt="김현진 프로필" onerror="this.closest('figure').style.display='none'" />
   </figure>
 </section>
 
@@ -213,8 +211,7 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
   <p><strong>학력:</strong> 관광경영학 학사 (2017.03 ~ 2024.02)</p>
   <p><strong>교내 활동:</strong> 단과 학생회 기획집행부장, 감사위원회 사무위원</p>
   <p><strong>수상:</strong> 한국 스마트 관광콘텐츠 콘테스트 금상, Facebook University 최우수학생상, 아너스클럽 최우수상</p>
-  <p class="k"><strong>핵심 소개:</strong> 학부 시절부터 마케팅 데이터와 고객 행동 분석에 집중해 왔으며, 실무 캠페인 기획·분석 경험을 바탕으로
-    세그먼트 전략, 리텐션 자동화, 퍼널 전환 최적화 역량을 확보했습니다.</p>
+  <p class="k"><strong>핵심 소개:</strong> 학부 시절부터 마케팅 데이터와 고객 행동 분석에 집중해 왔으며, 실무 캠페인 기획·분석 경험을 바탕으로 세그먼트 전략, 리텐션 자동화, 퍼널 전환 최적화 역량을 보유했습니다.</p>
 </section>
 
 <!-- KSA -->
@@ -222,32 +219,29 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
   <h2>KSA Graph</h2>
   <p class="k">아래 3D 그래프는 저의 핵심 역량을 지식·기술·역량·경험으로 분해해 보여줍니다. 노드를 클릭하면 관련 프로젝트 카드가 강조됩니다.</p>
   <div id="graph" class="graph-container" role="img" aria-label="KSA 3D Force Graph">
-    <div class="graph-loading">3D 그래프 로딩 중...</div>
+    <div class="graph-loading">3D 그래프 로딩 준비 중...</div>
   </div>
 
-<!-- 🧠 KSA 요약 카드 (이름 충돌 방지: ksa-overview / ksa-overview-cards) -->
-<div class="ksa-overview">
-  <h3>KSA Summary</h3>
-  <div class="ksa-overview-cards">
-    <div class="ksa-card">
-      <h4>Knowledge</h4>
-      <p>CRM 전략, 세그먼트 마케팅, 퍼널 분석 등 고객 데이터를 기반으로 한 전략적 사고와 분석 지식을 습득했습니다.</p>
-    </div>
-    <div class="ksa-card">
-      <h4>Skill</h4>
-      <p>SQL, Salesforce, 데이터 시각화 등 실무 중심의 기술을 활용하여 CRM 퍼널 개선과 리텐션 전략을 수립했습니다.</p>
-    </div>
-    <div class="ksa-card">
-      <h4>Ability</h4>
-      <p>고객의 행동 데이터를 읽고 브랜드 감성에 맞는 맞춤 CRM 전략을 기획·실행하는 역량을 보유했습니다.</p>
+  <div class="ksa-overview">
+    <h3>KSA Summary</h3>
+    <div class="ksa-overview-cards">
+      <div class="ksa-card card">
+        <h4>Knowledge</h4>
+        <p>CRM 전략, 세그먼트 마케팅, 퍼널 분석, 리텐션, LTV 관리, GA4 분석</p>
+      </div>
+      <div class="ksa-card card">
+        <h4>Skill</h4>
+        <p>SQL, Salesforce, 데이터 시각화, GA4, Excel, Notion, Kakao Biz</p>
+      </div>
+      <div class="ksa-card card">
+        <h4>Ability</h4>
+        <p>문제 정의, 데이터 스토리텔링, 가설 검증, 협업 리더십, 실행력</p>
+      </div>
     </div>
   </div>
-</div>
 
-
-  <!-- 🎓 Certificates & Activities -->
   <div class="ksa-detail">
-    <div class="ksa-card">
+    <div class="ksa-card card">
       <h3># Skills / Certificates</h3>
       <ul>
         <li>Google Analytics Certificate (2023.10)</li>
@@ -257,8 +251,7 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
         <li>MOS Excel & PowerPoint</li>
       </ul>
     </div>
-
-    <div class="ksa-card">
+    <div class="ksa-card card">
       <h3># Activities</h3>
       <ul>
         <li>Kb국민은행 디지털 서포터즈 (2021.12 - 2022.03)<br>• 금융 서비스 홍보 콘텐츠 기획 및 현장 서비스</li>
@@ -269,137 +262,34 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
   </div>
 </section>
 
-<!-- ✅ 추가할 CSS -->
+<!-- 추가 CSS(섹션 내 전용) -->
 <style>
-/* --- KSA Summary --- */
-.ksa-summary {
-  margin: 60px auto 100px;
-  max-width: 950px;
-  text-align: center;
-}
-.ksa-summary h3 {
-  font-size: clamp(26px, 3vw, 32px);
-  font-weight: 700;
-  margin-bottom: 40px;
-}
-.ksa-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-}
-.ksa-card {
-  flex: 1 1 280px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-  padding: 28px;
-}
-.ksa-card h4 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #1e6091;
-}
-.ksa-card p, .ksa-card ul {
-  font-size: 16px;
-  color: #555;
-  line-height: 1.7;
-  text-align: left;
-}
-/* === KSA Overview (요약 카드 3개: PC 가로, 모바일 세로) === */
-#ksa .ksa-overview {
-  margin: 60px auto 100px;
-  max-width: 1100px;
-  text-align: center;
-}
-#ksa .ksa-overview h3 {
-  font-size: clamp(26px, 3vw, 32px);
-  font-weight: 700;
-  margin-bottom: 40px;
-}
+/* KSA Overview Cards */
+#ksa .ksa-overview{margin:60px auto 100px;max-width:1100px;text-align:center}
+#ksa .ksa-overview h3{font-size:clamp(26px,3vw,32px);font-weight:700;margin-bottom:40px}
+#ksa .ksa-overview-cards{display:flex;flex-wrap:nowrap;justify-content:center;align-items:stretch;gap:24px}
+#ksa .ksa-overview-cards .ksa-card{flex:1 1 0;max-width:320px;padding:28px;transition:transform .25s ease, box-shadow .25s ease}
+#ksa .ksa-overview-cards .ksa-card:hover{transform:translateY(-6px);box-shadow:0 6px 14px rgba(0,0,0,0.12)}
+#ksa .ksa-overview-cards .ksa-card h4{font-size:20px;font-weight:600;margin-bottom:10px;color:#1e6091}
+#ksa .ksa-overview-cards .ksa-card p{font-size:16px;color:#555;line-height:1.7;text-align:left}
+@media (max-width:900px){#ksa .ksa-overview-cards{flex-wrap:wrap}#ksa .ksa-overview-cards .ksa-card{max-width:90%;flex:1 1 100%}}
 
-/* PC: 가로 3열 고정 */
-#ksa .ksa-overview-cards {
-  display: flex;
-  flex-wrap: nowrap;           /* 가로 일렬 */
-  justify-content: center;
-  align-items: stretch;
-  gap: 24px;
-}
-#ksa .ksa-overview-cards .ksa-card {
-  flex: 1 1 0;
-  max-width: 320px;            /* 카드 폭 균일 */
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-  padding: 28px;
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-#ksa .ksa-overview-cards .ksa-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-}
-#ksa .ksa-overview-cards .ksa-card h4 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #1e6091;
-}
-#ksa .ksa-overview-cards .ksa-card p {
-  font-size: 16px;
-  color: #555;
-  line-height: 1.7;
-  text-align: left;
-}
-
-/* 모바일/태블릿: 자동 세로 전환 */
-@media (max-width: 900px) {
-  #ksa .ksa-overview-cards { flex-wrap: wrap; }
-  #ksa .ksa-overview-cards .ksa-card { max-width: 90%; flex: 1 1 100%; }
-}
-
-/* --- Certificates & Activities --- */
-.ksa-detail {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  max-width: 950px;
-  margin: 0 auto 100px;
-}
-.ksa-detail .ksa-card {
-  flex: 1 1 420px;
-}
-.ksa-detail h3 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 16px;
-}
-
-/* --- 반응형: 모바일에서는 세로 정렬 --- */
-@media (max-width: 768px) {
-  .ksa-detail {
-    flex-direction: column;
-    align-items: center;
-  }
-  .ksa-detail .ksa-card {
-    width: 90%;
-  }
-}
+/* Certificates & Activities */
+.ksa-detail{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;max-width:950px;margin:0 auto 100px}
+.ksa-detail .ksa-card{flex:1 1 420px}
+.ksa-detail h3{font-size:22px;font-weight:700;margin-bottom:16px}
+@media (max-width:768px){.ksa-detail{flex-direction:column;align-items:center}.ksa-detail .ksa-card{width:90%}}
 </style>
-
-
 
 <!-- PROJECTS -->
 <section id="projects" class="projects">
   <h2>Projects</h2>
   <div class="projects-grid">
 
-    <!-- 1 -->
-    <article class="project" data-skill="GA4,세그먼트,퍼널,리텐션">
+    <article class="project card" data-skill="GA4,세그먼트,퍼널,리텐션">
       <div class="p-image">
-        <img src="./img1.png" alt="CRM Funnel Optimization Project" />
+        <span class="badge">30d 미구매율 85%→68%</span>
+        <img src="./img1.png" alt="CRM Funnel Optimization Project" loading="lazy" />
         <span class="ph">img1.png</span>
       </div>
       <h3>CRM Funnel Optimization Project</h3>
@@ -410,10 +300,10 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
       <div class="meta">Tech: GA4, Excel, CRM Tool</div>
     </article>
 
-    <!-- 2 -->
-    <article class="project" data-skill="자동화,세그먼트,카피,딥링크">
+    <article class="project card" data-skill="자동화,세그먼트,카피,딥링크">
       <div class="p-image">
-        <img src="./img2.png" alt="Retention Automation Campaign" />
+        <span class="badge">객단가 +59%</span>
+        <img src="./img2.png" alt="Retention Automation Campaign" loading="lazy" />
         <span class="ph">img2.png</span>
       </div>
       <h3>Retention Automation Campaign</h3>
@@ -424,10 +314,10 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
       <div class="meta">Tech: Kakao Biz, Google Sheets</div>
     </article>
 
-    <!-- 3 -->
-    <article class="project" data-skill="리엔게이지,세그먼트,웨이브,저관여">
+    <article class="project card" data-skill="리엔게이지,세그먼트,웨이브,저관여">
       <div class="p-image">
-        <img src="./img3.png" alt="Funnel Re-engagement Strategy" />
+        <span class="badge">재활성화율 12.4%</span>
+        <img src="./img3.png" alt="Funnel Re-engagement Strategy" loading="lazy" />
         <span class="ph">img3.png</span>
       </div>
       <h3>Funnel Re-engagement Strategy</h3>
@@ -438,10 +328,10 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
       <div class="meta">Tech: CRM 데이터 분석, 자동화 리마케팅</div>
     </article>
 
-    <!-- 4 -->
-    <article class="project" data-skill="제안서,우선순위,대시보드,경영인사이트">
+    <article class="project card" data-skill="제안서,우선순위,대시보드,경영인사이트">
       <div class="p-image">
-        <img src="./img4.png" alt="CRM Proposal Consulting" />
+        <span class="badge">의사결정 속도↑</span>
+        <img src="./img4.png" alt="CRM Proposal Consulting" loading="lazy" />
         <span class="ph">img4.png</span>
       </div>
       <h3>CRM Proposal Consulting</h3>
@@ -452,10 +342,10 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
       <div class="meta">Tech: PowerPoint, GA4</div>
     </article>
 
-    <!-- 5 -->
-    <article class="project" data-skill="세분화,KPI,채널믹스,크리에이티브매칭">
+    <article class="project card" data-skill="세분화,KPI,채널믹스,크리에이티브매칭">
       <div class="p-image">
-        <img src="./img5.png" alt="Facebook University Honors Project" />
+        <span class="badge">최우수상</span>
+        <img src="./img5.png" alt="Facebook University Honors Project" loading="lazy" />
         <span class="ph">img5.png</span>
       </div>
       <h3>Facebook University Honors Project</h3>
@@ -475,8 +365,11 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
   <div class="timeline">
     <div class="timeline-item">
       <h3>2024.04 – 2025.05 | Snapcompany · Snappush CRM Team</h3>
-      <p>월 1.2억 원 규모 광고비를 집행하며 30개 이상 고객사의 자사몰 CRM 캠페인 기획·성과 분석 주도, 세그먼트별 리텐션 자동화 구축</p>
-      <p><strong>역할:</strong> 퍼널/세그먼트 설계, 메시지 A/B, 자동화 룰·빈도 캡핑, 대시보드 리포팅</p>
+      <p>월 1.2억 원 규모 광고비 집행 · 30개+ 고객사 CRM 캠페인 기획·성과 분석 · 세그먼트별 리텐션 자동화 구축</p>
+      <ul class="k">
+        <li>퍼널/세그먼트 설계, 메시지 A/B, 자동화 룰·빈도 캡핑, 대시보드 리포팅</li>
+        <li>0~30/30~90/180d+ 구간 과제 정의 및 리소스 배분 로드맵</li>
+      </ul>
     </div>
     <div class="timeline-item">
       <h3>2022.01 - 2022.07 | Facebook University / Honors Club</h3>
@@ -489,212 +382,87 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 <section id="how" class="how">
   <h2>How I Work</h2>
   <div class="how-grid">
-    <div class="how-card"><h4>Work Style</h4><p>어려운 상황에서도 긍정적 태도를 유지하고, 문제보다 해결에 집중합니다.</p></div>
-    <div class="how-card"><h4>Communication</h4><p>목표 정렬을 우선으로 팀과 적극 소통하며, 협업 속도를 높입니다.</p></div>
-    <div class="how-card"><h4>Execution</h4><p>마감 준수와 실행력에 집중하고, 프로세스를 반복 개선합니다.</p></div>
-    <div class="how-card"><h4>Responsibility</h4><p>결과 품질과 일관성에 책임을 지고 스스로 점검합니다.</p></div>
-    <div class="how-card"><h4>Feedback</h4><p>객관적 피드백을 겸손히 수용하고 다음 스프린트 개선으로 연결합니다.</p></div>
-    <div class="how-card"><h4>Growth Mindset</h4><p>배움과 성장을 습관화하여 최선의 결과를 만듭니다.</p></div>
+    <div class="how-card card"><h4>Work Style</h4><p>어려운 상황에서도 긍정적 태도를 유지하고, 문제보다 해결에 집중합니다.</p></div>
+    <div class="how-card card"><h4>Communication</h4><p>목표 정렬을 우선으로 팀과 적극 소통하며, 협업 속도를 높입니다.</p></div>
+    <div class="how-card card"><h4>Execution</h4><p>마감 준수와 실행력에 집중하고, 프로세스를 반복 개선합니다.</p></div>
+    <div class="how-card card"><h4>Responsibility</h4><p>결과 품질과 일관성에 책임을 지고 스스로 점검합니다.</p></div>
+    <div class="how-card card"><h4>Feedback</h4><p>객관적 피드백을 겸손히 수용하고 다음 스프린트 개선으로 연결합니다.</p></div>
+    <div class="how-card card"><h4>Growth Mindset</h4><p>배움과 성장을 습관화하여 최선의 결과를 만듭니다.</p></div>
   </div>
 </section>
-  
+
 <!-- COFFEE -->
-<section id="coffee" class="coffee" style="padding:120px 6vw 96px;border-bottom:1px solid var(--line)">
+<section id="coffee" class="coffee">
   <h2>About Coffee</h2>
-
   <div class="coffee-flex" style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap;margin-top:40px">
-
-    <!-- 이미지 왼쪽 -->
     <div class="coffee-img" style="flex:1 1 320px;max-width:420px;display:flex;justify-content:center">
-      <img src="./img6.png" alt="커피를 마시는 김현진" 
-           style="width:100%;height:auto;object-fit:contain;border:none;box-shadow:none;background:transparent" />
+      <img src="./img6.png" alt="커피를 마시는 김현진" loading="lazy" style="width:100%;height:auto;object-fit:contain;border:none;box-shadow:none;background:transparent" />
     </div>
-
-    <!-- 텍스트 오른쪽 -->
     <div class="coffee-text" style="flex:1 1 400px;max-width:560px">
-      <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">
-        커피를 마시는 시간을 정말 좋아합니다. 커피에 대한 호기심이 커져 
-        <strong>바리스타 자격증</strong>을 취득하며 원두의 향과 추출 과정을 깊이 연구했습니다.<br/><br/>
-        특히 <strong>핸드드립 커피</strong>를 즐겨 마시며, 직접 원두를 갈고 드립하는 과정에서
-        집중과 여유를 배우곤 합니다.<br/>
-        가장 좋아하는 커피는 하와이의 <strong>코나 커피</strong>입니다.
-      </p>
+      <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">커피를 마시는 시간을 정말 좋아합니다. <strong>바리스타 자격증</strong>을 취득하며 원두의 향과 추출 과정을 깊이 연구했습니다. 특히 <strong>핸드드립</strong>을 즐기며, 직접 원두를 갈고 드립하는 과정에서 집중과 여유를 배웁니다. 가장 좋아하는 커피는 하와이의 <strong>코나</strong>입니다.</p>
     </div>
-
   </div>
 </section>
 
 <!-- GUITAR -->
-<section id="guitar" class="guitar" style="padding:120px 6vw 96px;border-bottom:1px solid var(--line)">
+<section id="guitar" class="guitar">
   <h2>About Guitar</h2>
-
   <div class="guitar-flex" style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap-reverse;margin-top:40px">
-
-    <!-- 텍스트 왼쪽 -->
     <div class="guitar-text" style="flex:1 1 400px;max-width:560px">
-      <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">
-        기타 연주하는 것을 좋아합니다. 중학생 시절부터 해외 락, 어쿠스틱 팝, 재즈 등 다양한 음악을 들으며
-        기타로 연주하며 시간을 보냈습니다.<br/><br/>
-        요즘엔 <strong>보사노바</strong>를 찾아 들으며 잔잔한 리듬 속에서 감정을 정리하고,
-        생각을 정리하는 시간을 즐깁니다.
-      </p>
+      <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">중학생 때부터 해외 락·어쿠스틱 팝·재즈 등 다양한 음악을 기타로 연주해 왔습니다. 요즘엔 <strong>보사노바</strong>를 즐겨 들으며, 잔잔한 리듬 속에서 생각을 정리합니다.</p>
     </div>
-
-    <!-- 이미지 오른쪽 -->
     <div class="guitar-img" style="flex:1 1 320px;max-width:420px;display:flex;justify-content:center">
-      <img src="./img7.png" alt="기타를 연주하는 김현진" 
-           style="width:100%;height:auto;object-fit:contain;border:none;box-shadow:none;background:transparent" />
+      <img src="./img7.png" alt="기타를 연주하는 김현진" loading="lazy" style="width:100%;height:auto;object-fit:contain;border:none;box-shadow:none;background:transparent" />
     </div>
-
   </div>
 </section>
-<!-- 🌍 TRAVEL SECTION -->
-<section id="travel" class="travel" style="padding:120px 6vw 96px;border-bottom:1px solid var(--line)">
+
+<!-- TRAVEL -->
+<section id="travel" class="travel">
   <h2>About Travel</h2>
-
   <div class="travel-flex" style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap;margin-top:40px;">
-    <!-- 텍스트 -->
     <div class="travel-text" style="flex:1 1 400px;max-width:560px;">
-      <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">
-        여행은 제게 새로운 시각을 선물하는 시간입니다.<br/>
-        여행지를 계획하고, 현지의 문화를 직접 경험하며 얻은 통찰은<br/>
-        고객 여정과 경험 설계에도 큰 영향을 주었습니다.<br/><br/>
-        지금까지 <strong>한국, 일본, 홍콩, 이탈리아, 몰타, 독일, 폴란드, 영국, 프랑스, 아일랜드, 북아일랜드, 아이슬란드, 하와이</strong>를 여행했습니다.
-      </p>
+      <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">여행은 새로운 시각을 선물합니다. 지금까지 <strong>한국, 일본, 홍콩, 이탈리아, 몰타, 독일, 폴란드, 영국, 프랑스, 아일랜드, 북아일랜드, 아이슬란드, 하와이</strong>를 여행했습니다.</p>
     </div>
-
-    <!-- 인물 이미지 (축소) -->
     <div class="travel-img" style="flex:1 1 280px;max-width:360px;display:flex;justify-content:center;">
-      <img src="./img8.png" alt="여행 중인 김현진"
-           style="width:90%;height:auto;object-fit:contain;border:none;box-shadow:none;background:transparent;border-radius:16px;" />
+      <img src="./img8.png" alt="여행 중인 김현진" loading="lazy" style="width:90%;height:auto;object-fit:contain;border:none;box-shadow:none;background:transparent;border-radius:16px;" />
     </div>
   </div>
 </section>
 
-
-<!-- 💼 ABOUT WORK SECTION -->
-<section
-  id="work"
-  class="work-section"
-  style="padding:120px 6vw 100px; background:#fafafa; border-bottom:1px solid var(--line);"
->
-  <h2 style="font-size:clamp(32px,4vw,42px); font-weight:700; margin-bottom:40px;">
-    About Work
-  </h2>
-
-  <!-- 1️⃣ Intro -->
-  <p
-    style="font-size:clamp(18px,1.5vw,22px); line-height:1.9; color:var(--muted); max-width:800px;"
-  >
-    데이터를 통해 고객의 행동을 이해하고,<br>감성적인 연결로 브랜드 충성도를 높이는 CRM 전략을 만들어갑니다.
-    <br><br>
-    퍼널 분석과 세그먼트 기반 메시지 전략을 중심으로,<br>브랜드의 <strong>재구매율 향상</strong>과 <strong>리텐션 자동화</strong>를 실현했습니다.
+<!-- ABOUT WORK -->
+<section id="work" class="work-section" style="padding:120px 6vw 100px; background:#fafafa; border-bottom:1px solid var(--line);">
+  <h2 style="font-size:clamp(32px,4vw,42px); font-weight:700; margin-bottom:40px;">About Work</h2>
+  <p style="font-size:clamp(18px,1.5vw,22px); line-height:1.9; color:var(--muted); max-width:800px;">
+    데이터를 통해 고객의 행동을 이해하고, 감성적 연결로 브랜드 충성도를 높이는 CRM 전략을 만들어갑니다.<br><br>
+    퍼널 분석과 세그먼트 기반 메시지 전략을 중심으로, <strong>재구매율 향상</strong>과 <strong>리텐션 자동화</strong>를 실현했습니다.
   </p>
+  <figure style="margin:80px auto 60px; max-width:780px;">
+    <canvas id="funnelChart" role="img" aria-label="미구매 방문자 전환 퍼널 차트"></canvas>
+    <figcaption class="k" style="text-align:center; margin-top:8px">90일 이후 전환 본격 발생, 180일 이후 재활성 필요</figcaption>
+  </figure>
 
-  <!-- 2️⃣ Performance Chart -->
-  <div style="margin:80px auto 60px; max-width:780px; height:380px;">
-    <canvas id="funnelChart"></canvas>
-  </div>
-
-  <!-- 3️⃣ Strength Cards -->
-  <div
-    class="work-strengths"
-    style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center; margin-top:40px;"
-  >
-    <!-- 카드 1 -->
-    <div
-      style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px;
-             box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px;"
-    >
-      <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">
-        데이터 분석 기반 인사이트
-      </h3>
-      <p style="color:#666; line-height:1.7;">
-        7~365일 미구매 방문자 데이터를 기반으로 전환 흐름을 분석하고
-        <br>
-        주요 정체 구간을 발견하여 CRM 타이밍 전략을 수립했습니다.
-      </p>
+  <div class="work-strengths" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center; margin-top:40px;">
+    <div class="card" style="flex:1 1 240px; min-width:240px; padding:30px;">
+      <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">데이터 분석 기반 인사이트</h3>
+      <p style="color:#666; line-height:1.7;">7~365일 미구매 방문자 데이터를 기반으로 전환 흐름 분석, 정체 구간 진단 및 타이밍 전략 수립.</p>
     </div>
-
-    <!-- 카드 2 -->
-    <div
-      style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px;
-             box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px;"
-    >
-      <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">
-        세그먼트 전략 설계
-      </h3>
-      <p style="color:#666; line-height:1.7;">
-        고객 상태(미구매·이탈·활성)와 행동 이력을 결합한 세그먼트 설계로
-        <br>
-        상황별 리마케팅 메시지와 빈도 최적화를 구현했습니다.
-      </p>
+    <div class="card" style="flex:1 1 240px; min-width:240px; padding:30px;">
+      <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">세그먼트 전략 설계</h3>
+      <p style="color:#666; line-height:1.7;">상태(미구매·이탈·활성)와 행동 이력 결합 세그먼트로 메시지/빈도 최적화.</p>
     </div>
-
-    <!-- 카드 3 -->
-    <div
-      style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px;
-             box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px;"
-    >
-      <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">
-        CRM 자동화 및 리텐션 개선
-      </h3>
-      <p style="color:#666; line-height:1.7;">
-        캠페인 자동화 플로우를 구축하여 고객 여정의 핵심 구간을 자동으로 연결하고,
-        <br>
-        180일 이상 장기 휴면 고객의 재활성화를 유도했습니다.
-      </p>
+    <div class="card" style="flex:1 1 240px; min-width:240px; padding:30px;">
+      <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">CRM 자동화 및 리텐션 개선</h3>
+      <p style="color:#666; line-height:1.7;">자동화 플로우로 핵심 구간 연결, 180일+ 휴면 재활성 유도.</p>
     </div>
   </div>
 
-  <!-- 4️⃣ Highlight Metric -->
   <div style="text-align:center; margin-top:80px;">
     <p style="font-size:clamp(18px,1.5vw,22px); color:#333; font-weight:500;">
-      “리인게이지먼트 캠페인으로 180일 미구매율 <strong>60.1% → 58.6%</strong> 개선”
-      <br>
-      “30일 미구매율 <strong>85% → 68%</strong> 달성”
+      “리인게이지먼트로 180일 미구매율 <strong>60.1% → 58.6%</strong> 개선” · “30일 미구매율 <strong>85% → 68%</strong>”
     </p>
   </div>
 </section>
-
-<!-- 📊 Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const ctx = document.getElementById("funnelChart");
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: ["7일", "14일", "30일", "100일", "180일", "365일"],
-      datasets: [
-        {
-          label: "미구매율 (%)",
-          data: [78.0, 73.5, 68.3, 60.8, 52.5, 41.7],
-          backgroundColor: "#74c0fc",
-          borderRadius: 10,
-          borderSkipped: false,
-        },
-      ],
-    },
-    options: {
-      plugins: {
-        legend: { display: false },
-        title: {
-          display: true,
-          text: "미구매 방문자 전환 퍼널 (7~365일)",
-          font: { size: 18, weight: "600" },
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 100,
-          ticks: { stepSize: 10 },
-        },
-      },
-    },
-  });
-</script>
-
 
 <!-- CONTACT -->
 <section id="contact" class="contact">
@@ -703,173 +471,259 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
     <div><p>새로운 CRM 전략과 성장 기회에 대해 이야기하는 것을 즐깁니다. 편하게 연락 주세요.</p></div>
     <div>
       <p class="k"><strong>Email</strong>  <a href="mailto:boysangme@gmail.com">boysangme@gmail.com</a></p>
-      <p class="k"><strong>Instagram</strong>  <a href="https://www.instagram.com/Romanticisman" target="_blank" rel="noopener">@Romanticisman</a></p>=
+      <p class="k"><strong>Instagram</strong>  <a href="https://www.instagram.com/Romanticisman" target="_blank" rel="noopener">https://www.instagram.com/Romanticisman</a></p>
     </div>
   </div>
 </section>
 
 <footer>© 2025 김현진. All Rights Reserved.</footer>
 
+<!-- 동적 로드: 차트/3D는 섹션 진입 시 로드 -->
 <script>
-/* ===== 테마 토글 ===== */
-const body=document.body, themeBtn=document.getElementById('themeToggle');
-const initial=localStorage.getItem('theme')||'light'; body.setAttribute('data-theme',initial); themeBtn.textContent=initial==='dark'?'☀️':'🌙';
-themeBtn.addEventListener('click',()=>{const next=body.getAttribute('data-theme')==='dark'?'light':'dark'; body.setAttribute('data-theme',next); themeBtn.textContent=next==='dark'?'☀️':'🌙'; localStorage.setItem('theme',next);});
+(function(){
+  // ===== 테마 토글 =====
+  var body=document.body; var themeBtn=document.getElementById('themeToggle');
+  var initial=localStorage.getItem('theme')||'light';
+  body.setAttribute('data-theme', initial);
+  themeBtn.textContent = initial==='dark'?'☀️':'🌙';
+  themeBtn.setAttribute('aria-pressed', initial==='dark');
+  themeBtn.addEventListener('click',function(){
+    var next = body.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', next);
+    themeBtn.textContent = next==='dark'?'☀️':'🌙';
+    themeBtn.setAttribute('aria-pressed', next==='dark');
+    localStorage.setItem('theme', next);
+    setTimeout(createGlobalRain, 10); // 테마 전환 시 비 투명도 재적용
+  });
 
-/* ===== 모바일 메뉴 ===== */
-const mbBtn=document.getElementById('mobileMenuBtn'), mbNav=document.getElementById('mobileNav');
-mbBtn?.addEventListener('click',()=>mbNav.classList.toggle('active'));
-mbNav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mbNav.classList.remove('active')));
-
-/* ===== 네비 활성 상태 & 스크롤 ===== */
-function updateActive(){ const secs=document.querySelectorAll('section[id]'); const links=document.querySelectorAll('.nav-links a,.mobile-nav a'); let cur='home';
-  secs.forEach(s=>{const top=s.offsetTop-100; if(window.pageYOffset>=top) cur=s.id;});
-  links.forEach(l=>{l.classList.toggle('active', l.getAttribute('href')===`#${cur}`);});
-}
-window.addEventListener('scroll',()=>{updateActive();},{passive:true}); updateActive();
-
-/* ===== Typewriter ===== */
-(function(){ const el=document.getElementById('typeTarget'); const text='CRM 전략 기획자 김현진 입니다.'; let i=0; const speed=50;
-  function type(){ if(i<=text.length){ el.textContent=text.slice(0,i); i++; setTimeout(type,speed);} else { el.style.borderRight='none'; } }
-  setTimeout(type,400);
-})();
-
-/* ===== 숫자 1 비 (전체 화면) ===== */
-function createGlobalRain(){
-  const wrap=document.getElementById('rain'); if(!wrap) return; wrap.innerHTML='';
-  const isDark = body.getAttribute('data-theme')==='dark';
-  const COUNT = Math.min(isDark?90:110, Math.max(28, Math.floor(window.innerWidth/20)));
-  for(let i=0;i<COUNT;i++){
-    const s=document.createElement('span'); s.className='drop'; s.textContent='1';
-    s.style.left=(Math.random()*100)+'vw';
-    s.style.animationDuration=(5+Math.random()*7)+'s';
-    s.style.animationDelay=(Math.random()*3)+'s';
-    s.style.opacity = isDark ? .28 : .38;
-    wrap.appendChild(s);
+  // ===== 모바일 메뉴 =====
+  var mbBtn=document.getElementById('mobileMenuBtn'); var mbNav=document.getElementById('mobileNav');
+  if(mbBtn){
+    mbBtn.addEventListener('click',function(){
+      var open = mbNav && mbNav.classList ? mbNav.classList.toggle('active') : false;
+      mbBtn.setAttribute('aria-expanded', String(open));
+    });
   }
-}
-window.addEventListener('load',createGlobalRain);
-window.addEventListener('resize',()=>{clearTimeout(window.__rainTimer); window.__rainTimer=setTimeout(createGlobalRain,120);},{passive:true});
-themeBtn.addEventListener('click',()=>{setTimeout(createGlobalRain,10);}); // 테마 전환 시 투명도 재적용
-
-/* ===== 이미지 에러 처리: 프레임 유지 + 플레이스홀더 표시 ===== */
-document.querySelectorAll('.p-image img').forEach(img=>{
-  img.addEventListener('error',()=>{
-    const frame=img.parentElement; frame.classList.add('no-image');
-    const ph=frame.querySelector('.ph'); if(ph){ ph.textContent='이미지를 불러올 수 없습니다'; }
-  }, {once:true});
-});
-
-/* ===== KSA 3D Graph: 안전 초기화 ===== */
-let graphInstance=null;
-function buildKSAData(){
-  const categories={Knowledge:'#111',Skills:'#333',Abilities:'#555',Experience:'#777'};
-  const dataMap={
-    Knowledge:['CRM 전략','세그먼트 전략','퍼널 분석','리텐션 마케팅','LTV 관리','GA4 분석'],
-    Skills:['GA4','Excel','SQL','Notion','Kakao Biz'],
-    Abilities:['문제 정의력','데이터 스토리텔링','가설 검증','협업 리더십','빠른 실행력'],
-    Experience:['캠페인 운영','리포트 작성','CRM 제안서','세그먼트 기획']
-  };
-  const g={nodes:[],links:[]}; let id=0;
-  Object.entries(dataMap).forEach(([cat,items])=>items.forEach(n=>g.nodes.push({id:id++,name:n,group:cat,color:categories[cat]})));
-  g.nodes.forEach(n=>{ if(Math.random()>.45){ const t=g.nodes[Math.floor(Math.random()*g.nodes.length)].id; if(t!==n.id) g.links.push({source:n.id,target:t}); }});
-  return g;
-}
-function waitForGraphReady(cb){
-  const el=document.getElementById('graph');
-  if(!window.ForceGraph3D || !el){ return setTimeout(()=>waitForGraphReady(cb),120); }
-  const r=el.getBoundingClientRect(); if(!r.width||!r.height){ return setTimeout(()=>waitForGraphReady(cb),120); }
-  cb(el);
-}
-function initKSAGraph(){
-  waitForGraphReady((el)=>{
-    try{
-      el.querySelector('.graph-loading')?.remove();
-      const data=buildKSAData();
-      const bg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#ffffff';
-
-      const Graph=window.ForceGraph3D()(el)
-        .graphData(data)
-        .backgroundColor(bg)
-        .nodeLabel(n=>`${n.group}: ${n.name}`)
-        .nodeColor(n=>n.color)
-        .nodeResolution(16)
-        .linkOpacity(0.25)
-        .linkWidth(2)
-        .onNodeHover(n=>{ el.style.cursor=n?'pointer':'default'; })
-        .onNodeClick(n=>highlightProjectBySkill(n?.name));
-
-      function fit(){ const r=el.getBoundingClientRect(); Graph.width(r.width); Graph.height(r.height); }
-      window.addEventListener('resize',fit,{passive:true}); fit(); setTimeout(fit,0);
-
-      const renderer=Graph.renderer?.(); if(renderer?.setPixelRatio){ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75)); }
-      document.addEventListener('visibilitychange',()=>{ Graph.pauseAnimation(document.hidden); if(!document.hidden) setTimeout(fit,60); });
-
-      graphInstance=Graph;
-      console.log('KSA 3D 그래프 초기화 완료');
-    }catch(e){
-      console.error('KSA 그래프 오류:',e);
-      el.innerHTML='<div class="graph-loading">그래프 로딩에 실패했습니다. 새로고침 해주세요.</div>';
+  if(mbNav){
+    var mbLinks = mbNav.querySelectorAll('a');
+    for(var i=0;i<mbLinks.length;i++){
+      mbLinks[i].addEventListener('click',function(){ if(mbNav) mbNav.classList.remove('active'); });
     }
-  });
-}
-window.addEventListener('load',initKSAGraph);
+  }
 
+  // ===== 내비 활성 & 스크롤 =====
+  function updateActive(){
+    var sections=document.querySelectorAll('section[id]');
+    var links=document.querySelectorAll('.nav-links a,.mobile-nav a');
+    var cur='home'; var threshold=window.innerHeight*0.35;
+    for(var i=0;i<sections.length;i++){
+      var s=sections[i];
+      if(s.getBoundingClientRect().top <= threshold) cur=s.id;
+    }
+    for(var j=0;j<links.length;j++){
+      var l=links[j];
+      l.classList.toggle('active', l.getAttribute('href')==='#'+cur);
+    }
+  }
+  window.addEventListener('scroll', updateActive, {passive:true});
+  updateActive();
 
-  
-/* 노드 클릭 → 관련 프로젝트 카드 강조 */
-function highlightProjectBySkill(skill){
-  if(!skill) return;
-  const cards=[...document.querySelectorAll('.project')];
-  cards.forEach(c=>c.style.boxShadow='none');
-  const m=cards.find(c=>(c.dataset.skill||'').includes(skill));
-  if(m){ m.style.boxShadow='inset 0 0 0 2px var(--accent)'; m.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>m.style.boxShadow='none',1600); }
-}
+  // ===== 스무스 스크롤 =====
+  var anchorLinks=document.querySelectorAll('a[href^="#"]');
+  for(var k=0;k<anchorLinks.length;k++){
+    (function(a){
+      a.addEventListener('click',function(e){
+        var t=document.querySelector(a.getAttribute('href')); if(!t) return;
+        e.preventDefault(); window.scrollTo({top:t.offsetTop-64,behavior:'smooth'});
+      });
+    })(anchorLinks[k]);
+  }
 
-/* 내부 앵커 스무스 스크롤(헤더 높이 보정) */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const t=document.querySelector(a.getAttribute('href')); if(!t) return;
-    e.preventDefault(); window.scrollTo({top:t.offsetTop-64,behavior:'smooth'});
-  });
-});
+  // ===== Typewriter =====
+  (function(){ var el=document.getElementById('typeTarget'); var text='CRM 전략 기획자 김현진 입니다.'; var i=0; var speed=50;
+    function type(){ if(i<=text.length){ el.textContent=text.slice(0,i); i++; setTimeout(type,speed);} else { el.style.borderRight='none'; } }
+    setTimeout(type,400);
+  })();
+
+  // ===== 숫자 1 비 =====
+  function createGlobalRain(){
+    var wrap=document.getElementById('rain'); if(!wrap) return; wrap.innerHTML='';
+    var isDark = body.getAttribute('data-theme')==='dark';
+    var COUNT = Math.min(isDark?90:110, Math.max(28, Math.floor(window.innerWidth/20)));
+    for(var i=0;i<COUNT;i++){
+      var s=document.createElement('span'); s.className='drop'; s.textContent='1';
+      s.style.left=(Math.random()*100)+'vw';
+      s.style.animationDuration=(5+Math.random()*7)+'s';
+      s.style.animationDelay=(Math.random()*3)+'s';
+      s.style.opacity = isDark ? .28 : .38;
+      wrap.appendChild(s);
+    }
+  }
+  window.addEventListener('load',createGlobalRain);
+  window.addEventListener('resize',function(){clearTimeout(window.__rainTimer); window.__rainTimer=setTimeout(createGlobalRain,120);},{passive:true});
+
+  // ===== 이미지 에러 처리(범용) =====
+  var allImgs=document.querySelectorAll('img');
+  for(var ai=0; ai<allImgs.length; ai++){
+    (function(img){
+      img.addEventListener('error',function(){
+        img.alt = (img.alt||'이미지') + ' (로딩 실패)';
+        var frame = img.closest ? img.closest('.p-image') : null;
+        if(frame && frame.classList) frame.classList.add('no-image');
+        var ph = img.parentElement ? img.parentElement.querySelector('.ph') : null;
+        if(ph){ ph.textContent='이미지를 불러올 수 없습니다'; }
+      }, {once:true});
+    })(allImgs[ai]);
+  }
+
+  // ===== KSA 3D 그래프: 필요 시 로드 =====
+  var graphLoaded=false; var graphInstance=null;
+  function buildKSAData(){
+    var categories={Knowledge:'#111',Skills:'#333',Abilities:'#555',Experience:'#777'};
+    var dataMap={
+      Knowledge:['CRM 전략','세그먼트 전략','퍼널 분석','리텐션 마케팅','LTV 관리','GA4 분석'],
+      Skills:['GA4','Excel','SQL','Notion','Kakao Biz'],
+      Abilities:['문제 정의력','데이터 스토리텔링','가설 검증','협업 리더십','빠른 실행력'],
+      Experience:['캠페인 운영','리포트 작성','CRM 제안서','세그먼트 기획']
+    };
+    var g={nodes:[],links:[]}; var id=0;
+    for(var cat in dataMap){ if(!dataMap.hasOwnProperty(cat)) continue; var items=dataMap[cat];
+      for(var ii=0; ii<items.length; ii++){
+        var n=items[ii]; g.nodes.push({id:id++,name:n,group:cat,color:categories[cat]});
+      }
+    }
+    for(var ni=0; ni<g.nodes.length; ni++){
+      var node=g.nodes[ni];
+      if(Math.random()>.45){ var t=g.nodes[Math.floor(Math.random()*g.nodes.length)].id; if(t!==node.id) g.links.push({source:node.id,target:t}); }
+    }
+    return g;
+  }
+  function highlightProjectBySkill(skill){
+    if(!skill) return; var cards=[].slice.call(document.querySelectorAll('.project'));
+    for(var ci=0; ci<cards.length; ci++){ cards[ci].style.boxShadow='none'; }
+    var match=null;
+    for(var cj=0; cj<cards.length; cj++){
+      var c=cards[cj]; if(((c.dataset && c.dataset.skill) || '').indexOf(skill)>-1){ match=c; break; }
+    }
+    if(match){ match.style.boxShadow='inset 0 0 0 2px var(--accent)'; match.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(function(){match.style.boxShadow='none';},1600); }
+  }
+  function initKSAGraph(){
+    var el=document.getElementById('graph'); if(!el) return;
+    var loading=el.querySelector ? el.querySelector('.graph-loading') : null; if(loading && loading.parentNode) loading.parentNode.removeChild(loading);
+    var data=buildKSAData();
+    var bg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#ffffff';
+    var Graph=window.ForceGraph3D()(el)
+      .graphData(data)
+      .backgroundColor(bg)
+      .nodeLabel(function(n){return n.group+': '+n.name;})
+      .nodeColor(function(n){return n.color;})
+      .nodeResolution(16)
+      .linkOpacity(0.25)
+      .linkWidth(2)
+      .onNodeHover(function(n){ el.style.cursor=n?'pointer':'default'; })
+      .onNodeClick(function(n){ highlightProjectBySkill(n && n.name); });
+    function fit(){ var r=el.getBoundingClientRect(); Graph.width(r.width); Graph.height(r.height); }
+    window.addEventListener('resize',fit,{passive:true}); fit(); setTimeout(fit,0);
+    var renderer = Graph.renderer ? Graph.renderer() : null; if(renderer && renderer.setPixelRatio){ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75)); }
+    document.addEventListener('visibilitychange',function(){ Graph.pauseAnimation(document.hidden); if(!document.hidden) setTimeout(fit,60); });
+    graphInstance=Graph;
+  }
+
+  // IntersectionObserver로 3D/차트 지연 로드
+  var ksaObserver=new IntersectionObserver(function(entries){
+    for(var i=0;i<entries.length;i++){
+      var entry=entries[i];
+      if(entry.isIntersecting && !graphLoaded){
+        graphLoaded=true;
+        loadScript('https://unpkg.com/three@0.150.1/build/three.min.js')
+          .then(function(){ return loadScript('https://unpkg.com/3d-force-graph@1.70.12/dist/3d-force-graph.min.js'); })
+          .then(function(){ initKSAGraph(); });
+      }
+    }
+  },{rootMargin:'0px 0px -20% 0px'});
+  var ksaEl=document.getElementById('ksa'); if(ksaEl) ksaObserver.observe(ksaEl);
+
+  var chartLoaded=false;
+  var workObserver=new IntersectionObserver(function(entries){
+    for(var i=0;i<entries.length;i++){
+      var entry=entries[i];
+      if(entry.isIntersecting && !chartLoaded){
+        chartLoaded=true;
+        loadScript('https://cdn.jsdelivr.net/npm/chart.js')
+          .then(function(){ renderFunnelChart(); });
+      }
+    }
+  },{rootMargin:'0px 0px -20% 0px'});
+  var workEl=document.getElementById('work'); if(workEl) workObserver.observe(workEl);
+
+  function renderFunnelChart(){
+    var ctx=document.getElementById('funnelChart'); if(!window.Chart||!ctx) return;
+    new Chart(ctx, {
+      type: 'bar',
+      data: { labels: ['7일','14일','30일','100일','180일','365일'], datasets: [{ label: '미구매율 (%)', data: [78.0,73.5,68.3,60.8,52.5,41.7], backgroundColor: '#74c0fc', borderRadius: 10, borderSkipped: false }] },
+      options: { plugins: { legend: { display:false }, title: { display:true, text: '미구매 방문자 전환 퍼널 (7~365일)', font: { size:18, weight:'600' } } }, scales: { y: { beginAtZero:true, max:100, ticks:{ stepSize:10 } } } }
+    });
+  }
+
+  // 동적 스크립트 로더
+  function loadScript(src){
+    return new Promise(function(resolve,reject){
+      var s=document.createElement('script'); s.src=src; s.defer=true; s.onload=resolve; s.onerror=reject; document.head.appendChild(s);
+    });
+  }
+
+  // 이력서(PDF) 버튼: 파일 없으면 html2pdf로 전체 페이지 저장
+  var resumeBtn=document.getElementById('resumeBtn');
+  if(resumeBtn){
+    resumeBtn.addEventListener('click', function(e){
+      var url = resumeBtn.getAttribute('href');
+      if(!url) return;
+      // 파일 존재 여부 HEAD 확인 후 실패 시 html2pdf 폴백
+      if(window.fetch){
+        fetch(url, { method:'HEAD' })
+          .then(function(res){ if(!res.ok) throw new Error('Not Found'); })
+          .catch(function(){
+            e.preventDefault();
+            loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js')
+              .then(function(){
+                var opt = { margin:[0.4,0.4,0.4,0.4], filename:'김현진_CRM_Portfolio.pdf', image:{ type:'jpeg', quality:0.98 }, html2canvas:{ scale:2, useCORS:true }, jsPDF:{ unit:'in', format:'a4', orientation:'portrait' } };
+                window.html2pdf().set(opt).from(document.body).save();
+              });
+          });
+      }
+    });
+  }
+
+  // ===== Scroll Reveal JS =====
+  var revealTargets = [
+    '.hero-sub','.hero-tag','.hero-cta','.hero-img-wrap',
+    'section h2','.project','.how-card','.timeline-item',
+    '#ksa .ksa-card','.work-section .card'
+  ];
+  var targetNodes=document.querySelectorAll(revealTargets.join(','));
+  for(var rt=0; rt<targetNodes.length; rt++){
+    var el=targetNodes[rt];
+    el.classList.add('reveal','reveal-up');
+    el.style.transitionDelay = (Math.min(rt%6,5)*60)+'ms'; // 가벼운 스태거
+  }
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!prefersReduced){
+    var io = new IntersectionObserver(function(entries){
+      for(var ei=0; ei<entries.length; ei++){
+        var entry=entries[ei];
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      }
+    },{threshold:0.12, rootMargin:'0px 0px -5% 0px'});
+    var reveals=document.querySelectorAll('.reveal');
+    for(var ri=0; ri<reveals.length; ri++){ io.observe(reveals[ri]); }
+  } else {
+    var reveals2=document.querySelectorAll('.reveal');
+    for(var rj=0; rj<reveals2.length; rj++){ reveals2[rj].classList.add('in-view'); }
+  }
+})();
 </script>
-  <!-- html2pdf.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-YcsIPykRZpl1FZ/6sSclzyK/xF7K8nkw+0J7Ntr0vT3AtZb1ZZEqrf4W8AbZLMCw+16lsqncMML2Nd3zHk0kUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-document.querySelector('a[href="./resume.pdf"]').addEventListener('click', function(e){
-  e.preventDefault();
-  const element = document.body;  // 전체 페이지를 PDF로 변환
-  const opt = {
-    margin:       [0.4, 0.4, 0.4, 0.4],   // 여백 (inch 단위)
-    filename:     '김현진_CRM_Portfolio.pdf',
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2, useCORS: true },
-    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-  };
-  html2pdf().set(opt).from(element).save();
-});
-</script>
-
-
-  
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
