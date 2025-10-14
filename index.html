@@ -142,6 +142,15 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 }
 </style>
 <style>
+  /* 여기에 추가 */
+.site-note {
+  background: var(--hover);
+  color: var(--muted);
+  font-size: 12.5px;
+  padding: 8px 6vw;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
 /* ===== Scroll Reveal (스르륵 등장) ===== */
 .reveal{opacity:0; transform:translate3d(0,12px,0); transition:opacity .6s ease, transform .6s ease; will-change:opacity,transform}
 .reveal.in-view{opacity:1; transform:none}
@@ -155,6 +164,11 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 </style>
 </head>
 <body>
+<!-- Top notice -->
+<div class="site-note reveal reveal-down" id="siteNote" role="note" aria-live="polite">
+  <span>이 사이트는 챗지피티, 제미나이, 커서를 활용해 별도의 개발 작업 없이 제작했습니다.</span>
+  <button class="site-note-close" id="siteNoteClose" aria-label="안내 닫기">×</button>
+</div>
 
 <!-- 시맨틱 H1 (시각 노출) -->
 <h1 class="visually-hidden" style="position:absolute;left:-9999px">CRM 전략 기획자 | 김현진</h1>
@@ -738,9 +752,21 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
     for(var rj=0; rj<reveals2.length; rj++){ reveals2[rj].classList.add('in-view'); }
   }
 })();
+  <script>
+  // 기존 코드 위에 추가
+  var siteNote = document.getElementById('siteNote');
+  var siteNoteClose = document.getElementById('siteNoteClose');
+  if(siteNoteClose){
+    siteNoteClose.addEventListener('click', function(){
+      siteNote.style.display = 'none';
+    });
+  }
+</script>
+
 </script>
 </body>
 </html>
+
 
 
 
