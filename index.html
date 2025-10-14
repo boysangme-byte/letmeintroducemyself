@@ -404,33 +404,32 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 
   </div>
 </section>
-<!-- TRAVEL SECTION -->
-<section id="travel" class="travel" style="padding:120px 6vw 96px;border-bottom:1px solid var(--line)">
-  <h2>About Travel</h2>
+<!-- 🌍 Travel Section -->
+<section id="travel" class="travel-section" style="padding:120px 6vw 100px; border-bottom:1px solid var(--line);">
+  <h2 style="font-size:clamp(32px,4vw,42px); font-weight:700; margin-bottom:40px;">About Travel</h2>
 
-  <div class="travel-flex" style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap;margin-top:40px;">
-    <!-- 텍스트 -->
-    <div class="travel-text" style="flex:1 1 400px;max-width:560px;">
-      <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">
+  <div class="travel-flex" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:60px;">
+    <!-- Left Text -->
+    <div class="travel-text" style="flex:1 1 400px; max-width:560px;">
+      <p style="font-size:clamp(18px,1.5vw,22px); line-height:1.9; color:var(--muted); margin:0;">
         여행하는 것을 좋아합니다.<br/>
-        여행 계획을 세우고 실행하는 과정에서 큰 즐거움을 느낍니다.<br/><br/>
+        여행 계획을 구체적으로 세우고 실행하는 과정에서 행복을 느낍니다.<br/><br/>
         해변에서의 휴양부터 스카이다이빙까지, 다양한 방식으로 세상을 경험하며 새로운 영감을 얻습니다.<br/><br/>
-        지금까지 <strong>한국, 일본, 홍콩, 이탈리아, 몰타, 독일, 폴란드, 영국, 프랑스, 아일랜드, 북아일랜드, 아이슬란드, 하와이</strong>를 여행했습니다.
       </p>
     </div>
 
-    <!-- 이미지 -->
-    <div class="travel-img" style="flex:1 1 320px;max-width:420px;display:flex;justify-content:center;">
-      <img src="./img8.png" alt="여행 중인 김현진"
-           style="width:100%;height:auto;object-fit:contain;border:none;box-shadow:none;background:transparent" />
+    <!-- Right Image -->
+    <div class="travel-img" style="flex:1 1 300px; max-width:420px; display:flex; justify-content:center;">
+      <img src="./img8.png" alt="여행 중인 김현진" 
+           style="width:100%; height:auto; object-fit:contain; border:none; background:transparent;">
     </div>
   </div>
 
-  <!-- 월드맵 -->
-  <div id="mapDiv" style="width:100%;height:480px;margin-top:80px;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);"></div>
+  <!-- World Map -->
+  <div id="mapDiv" style="width:100%; height:480px; margin-top:80px; border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08);"></div>
 </section>
 
-<!-- ✅ 올바른 라이브러리 순서 -->
+<!-- ✅ Scripts -->
 <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
@@ -438,52 +437,59 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 
 <script>
 am5.ready(function() {
-
-  // 루트 및 테마
   var root = am5.Root.new("mapDiv");
   root.setThemes([am5themes_Animated.new(root)]);
+  root._logo.dispose(); // 로고 제거
 
-  // 지도 생성
-  var chart = root.container.children.push(am5map.MapChart.new(root, {
-    projection: am5map.geoNaturalEarth1(), // 자연스러운 구면 투영
-    panX: "none",
-    panY: "none",
-    wheelX: "none",
-    wheelY: "none"
-  }));
+  var chart = root.container.children.push(
+    am5map.MapChart.new(root, {
+      projection: am5map.geoNaturalEarth1(),
+      panX: "none",
+      panY: "none",
+      wheelX: "none",
+      wheelY: "none"
+    })
+  );
 
-  // 기본 국가 레이어
-  var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
-    geoJSON: am5geodata_worldLow
-  }));
+  var polygonSeries = chart.series.push(
+    am5map.MapPolygonSeries.new(root, {
+      geoJSON: am5geodata_worldLow
+    })
+  );
 
-  // 기본 국가 스타일
   polygonSeries.mapPolygons.template.setAll({
     tooltipText: "{name}",
     interactive: true,
-    fill: am5.color(0xe0e0e0),
+    fill: am5.color(0xdedede),
     stroke: am5.color(0xffffff),
     strokeWidth: 0.6
   });
 
-  // 방문 국가 리스트
   const visited = ["KR", "JP", "HK", "IT", "MT", "DE", "PL", "GB", "FR", "IE", "IS", "US"];
 
-  // 방문 국가 강조
-  polygonSeries.mapPolygons.each(function(polygon) {
-    if (visited.includes(polygon.dataItem.get("id"))) {
-      polygon.setAll({
-        fill: am5.color(0x74c0fc),
-        stroke: am5.color(0x007bff),
-        strokeWidth: 1,
-        tooltipText: "{name} 🌍"
-      });
-    }
+  // ✅ 렌더링 완료 후 색상 반영
+  polygonSeries.events.on("datavalidated", function() {
+    polygonSeries.mapPolygons.each(function(polygon) {
+      const id = polygon.dataItem.get("id");
+      if (visited.includes(id)) {
+        polygon.setAll({
+          fill: am5.color(0x74c0fc),
+          stroke: am5.color(0x007bff),
+          strokeWidth: 1.2,
+          tooltipText: "{name} 🌍"
+        });
+      }
+    });
   });
+
+  chart.set("homeGeoPoint", { longitude: 10, latitude: 40 });
+  chart.set("homeZoomLevel", 1.2);
+  chart.goHome();
 
   chart.appear(1000, 100);
 });
 </script>
+
 
 
 
@@ -643,6 +649,7 @@ document.querySelector('a[href="./resume.pdf"]').addEventListener('click', funct
 
 </body>
 </html>
+
 
 
 
