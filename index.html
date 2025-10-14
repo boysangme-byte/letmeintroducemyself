@@ -404,102 +404,86 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 
   </div>
 </section>
-
-  <!-- TRAVEL SECTION -->
+<!-- TRAVEL SECTION -->
 <section id="travel" class="travel" style="padding:120px 6vw 96px;border-bottom:1px solid var(--line)">
   <h2>About Travel</h2>
 
-  <!-- 맵 + 콘텐츠 -->
   <div class="travel-flex" style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap;margin-top:40px;">
-
-    <!-- 왼쪽 텍스트 -->
+    <!-- 텍스트 -->
     <div class="travel-text" style="flex:1 1 400px;max-width:560px;">
       <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">
         여행하는 것을 좋아합니다.<br/>
         여행 계획을 세우고 실행하는 과정에서 큰 즐거움을 느낍니다.<br/><br/>
         해변에서의 휴양부터 스카이다이빙까지, 다양한 방식으로 세상을 경험하며 새로운 영감을 얻습니다.<br/><br/>
+        지금까지 <strong>한국, 일본, 홍콩, 이탈리아, 몰타, 독일, 폴란드, 영국, 프랑스, 아일랜드, 북아일랜드, 아이슬란드, 하와이</strong>를 여행했습니다.
       </p>
     </div>
 
-    <!-- 오른쪽 이미지 -->
+    <!-- 이미지 -->
     <div class="travel-img" style="flex:1 1 320px;max-width:420px;display:flex;justify-content:center;">
-      <img src="./img8.png" alt="여행 중인 김현진" 
+      <img src="./img8.png" alt="여행 중인 김현진"
            style="width:100%;height:auto;object-fit:contain;border:none;box-shadow:none;background:transparent" />
     </div>
   </div>
 
   <!-- 월드맵 -->
-  <div id="mapDiv" style="width:100%;height:480px;margin-top:80px;border-radius:16px;overflow:hidden;"></div>
+  <div id="mapDiv" style="width:100%;height:480px;margin-top:80px;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);"></div>
 </section>
 
-<!-- amCharts 라이브러리 -->
+<!-- amCharts -->
 <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
 <script>
 am5.ready(function() {
-  // 루트 생성
   var root = am5.Root.new("mapDiv");
   root.setThemes([am5themes_Animated.new(root)]);
 
-  // 차트 생성
   var chart = root.container.children.push(am5map.MapChart.new(root, {
+    projection: am5map.geoMercator(),
     panX: "none",
     panY: "none",
     wheelX: "none",
-    wheelY: "none",
-    projection: am5map.geoMercator()
+    wheelY: "none"
   }));
 
-  // 기본 월드맵 시리즈
   var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
     geoJSON: am5geodata_worldLow
   }));
 
-  // 기본 지도 스타일
+  // 기본 국가 색상
   polygonSeries.mapPolygons.template.setAll({
     tooltipText: "{name}",
     interactive: true,
-    fill: am5.color(0xe0e0e0),
+    fill: am5.color(0xdedede),
     stroke: am5.color(0xffffff),
-    strokeWidth: 0.5
+    strokeWidth: 0.7
   });
 
-  // 방문 국가 ISO 코드 (amCharts 기준)
-  const visited = [
-    "KR", // 한국
-    "JP", // 일본
-    "HK", // 홍콩
-    "IT", // 이탈리아
-    "MT", // 몰타
-    "DE", // 독일
-    "PL", // 폴란드
-    "GB", // 영국
-    "FR", // 프랑스
-    "IE", // 아일랜드
-    "IS", // 아이슬란드
-    "US"  // 하와이 (미국)
-  ];
-
-  // 방문 국가 스타일 적용
+  // 방문 국가
+  const visited = ["KR", "JP", "HK", "IT", "MT", "DE", "PL", "GB", "FR", "IE", "IS", "US"];
+  
   polygonSeries.mapPolygons.each(function(polygon) {
     if (visited.includes(polygon.dataItem.get("id"))) {
       polygon.setAll({
-        fill: am5.color(0x74c0fc),
+        fill: am5.color(0x5cbdfc),
         stroke: am5.color(0x007bff),
-        strokeWidth: 1
+        strokeWidth: 1.2,
+        tooltipText: "{name} (Visited)"
       });
     }
   });
 
-  // 부드러운 초기 확대 효과
+  // 배경색과 경계 조정
+  chart.seriesContainer.set("background", am5.Rectangle.new(root, {
+    fill: am5.color(0xfafafa)
+  }));
+
   chart.appear(1000, 100);
 });
 </script>
-
-<!-- amCharts 애니메이션 테마 -->
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
 
 <!-- CONTACT -->
@@ -658,6 +642,7 @@ document.querySelector('a[href="./resume.pdf"]').addEventListener('click', funct
 
 </body>
 </html>
+
 
 
 
