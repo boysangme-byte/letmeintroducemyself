@@ -404,94 +404,114 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 
   </div>
 </section>
-<!-- 🌍 Travel Section -->
-<section id="travel" class="travel-section" style="padding:120px 6vw 100px; border-bottom:1px solid var(--line);">
-  <h2 style="font-size:clamp(32px,4vw,42px); font-weight:700; margin-bottom:40px;">About Travel</h2>
+<!-- 🌍 TRAVEL SECTION -->
+<section id="travel" class="travel" style="padding:120px 6vw 96px;border-bottom:1px solid var(--line)">
+  <h2>About Travel</h2>
 
-  <div class="travel-flex" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:60px;">
-    <!-- Left Text -->
-    <div class="travel-text" style="flex:1 1 400px; max-width:560px;">
-      <p style="font-size:clamp(18px,1.5vw,22px); line-height:1.9; color:var(--muted); margin:0;">
-        여행하는 것을 좋아합니다.<br/>
-        여행 계획을 구체적으로 세우고 실행하는 과정에서 행복을 느낍니다.<br/><br/>
-        해변에서의 휴양부터 스카이다이빙까지, 다양한 방식으로 세상을 경험하며 새로운 영감을 얻습니다.<br/><br/>
+  <div class="travel-flex" style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap;margin-top:40px;">
+    <!-- 텍스트 -->
+    <div class="travel-text" style="flex:1 1 400px;max-width:560px;">
+      <p style="font-size:clamp(18px,1.5vw,22px);line-height:1.9;color:var(--muted);margin:0">
+        여행은 제게 새로운 시각을 선물하는 시간입니다.<br/>
+        여행지를 계획하고, 현지의 문화를 직접 경험하며 얻은 통찰은<br/>
+        고객 여정과 경험 설계에도 큰 영향을 주었습니다.<br/><br/>
+        지금까지 <strong>한국, 일본, 홍콩, 이탈리아, 몰타, 독일, 폴란드, 영국, 프랑스, 아일랜드, 북아일랜드, 아이슬란드, 하와이</strong>를 여행했습니다.
       </p>
     </div>
 
-    <!-- Right Image -->
-    <div class="travel-img" style="flex:1 1 300px; max-width:420px; display:flex; justify-content:center;">
-      <img src="./img8.png" alt="여행 중인 김현진" 
-           style="width:100%; height:auto; object-fit:contain; border:none; background:transparent;">
+    <!-- 인물 이미지 (축소) -->
+    <div class="travel-img" style="flex:1 1 280px;max-width:360px;display:flex;justify-content:center;">
+      <img src="./img8.png" alt="여행 중인 김현진"
+           style="width:90%;height:auto;object-fit:contain;border:none;box-shadow:none;background:transparent;border-radius:16px;" />
+    </div>
+  </div>
+</section>
+
+
+<!-- 💼 ABOUT WORK SECTION -->
+<section id="work" class="work-section" style="padding:120px 6vw 100px; background:#fafafa; border-bottom:1px solid var(--line);">
+  <h2 style="font-size:clamp(32px,4vw,42px); font-weight:700; margin-bottom:40px;">About Work</h2>
+
+  <!-- 1️⃣ Intro -->
+  <p style="font-size:clamp(18px,1.5vw,22px); line-height:1.9; color:var(--muted); max-width:800px;">
+    데이터를 통해 고객의 행동을 이해하고, 감성적인 연결로 브랜드 충성도를 높이는 CRM 전략을 만들어갑니다.<br><br>
+    퍼널 분석과 세그먼트 기반 메시지 전략을 중심으로, 브랜드의 <strong>재구매율 향상</strong>과 <strong>리텐션 자동화</strong>를 실현했습니다.
+  </p>
+
+  <!-- 2️⃣ Performance Chart -->
+  <div style="margin:80px auto 60px; max-width:780px; height:380px;">
+    <canvas id="funnelChart"></canvas>
+  </div>
+
+  <!-- 3️⃣ Strength Cards -->
+  <div class="work-strengths" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center; margin-top:40px;">
+    <div style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px;">
+      <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">데이터 분석 기반 인사이트</h3>
+      <p style="color:#666; line-height:1.7;">
+        7~365일 미구매 방문자 데이터를 기반으로 전환 흐름을 분석하고<br/>
+        주요 정체 구간을 발견하여 CRM 타이밍 전략을 수립했습니다.
+      </p>
+    </div>
+    <div style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px;">
+      <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">세그먼트 전략 설계</h3>
+      <p style="color:#666; line-height:1.7;">
+        고객 상태(미구매·이탈·활성)와 행동 이력을 결합한 세그먼트 설계로<br/>
+        상황별 리마케팅 메시지와 빈도 최적화를 구현했습니다.
+      </p>
+    </div>
+    <div style="flex:1 1 240px; min-width:240px; background:#fff; border-radius:16px; box-shadow:0 4px 14px rgba(0,0,0,0.06); padding:30px;">
+      <h3 style="font-size:20px; font-weight:600; margin-bottom:10px;">CRM 자동화 및 리텐션 개선</h3>
+      <p style="color:#666; line-height:1.7;">
+        캠페인 자동화 플로우를 구축하여 고객 여정의 핵심 구간을 자동으로 연결하고,<br/>
+        180일 이상 장기 휴면 고객의 재활성화를 유도했습니다.
+      </p>
     </div>
   </div>
 
-  <!-- World Map -->
-  <div id="mapDiv" style="width:100%; height:480px; margin-top:80px; border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08);"></div>
+  <!-- 4️⃣ Highlight Metric -->
+  <div style="text-align:center; margin-top:80px;">
+    <p style="font-size:clamp(18px,1.5vw,22px); color:#333; font-weight:500;">
+      “리인게이지먼트 캠페인으로 180일 미구매율 <strong>60.1% → 58.6%</strong> 개선”<br/>
+      “30일 미구매율 <strong>85% → 68%</strong> 달성”
+    </p>
+  </div>
 </section>
 
-<!-- ✅ Scripts -->
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
+<!-- 📊 Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-am5.ready(function() {
-  var root = am5.Root.new("mapDiv");
-  root.setThemes([am5themes_Animated.new(root)]);
-  root._logo.dispose(); // 로고 제거
-
-  var chart = root.container.children.push(
-    am5map.MapChart.new(root, {
-      projection: am5map.geoNaturalEarth1(),
-      panX: "none",
-      panY: "none",
-      wheelX: "none",
-      wheelY: "none"
-    })
-  );
-
-  var polygonSeries = chart.series.push(
-    am5map.MapPolygonSeries.new(root, {
-      geoJSON: am5geodata_worldLow
-    })
-  );
-
-  polygonSeries.mapPolygons.template.setAll({
-    tooltipText: "{name}",
-    interactive: true,
-    fill: am5.color(0xdedede),
-    stroke: am5.color(0xffffff),
-    strokeWidth: 0.6
-  });
-
-  const visited = ["KR", "JP", "HK", "IT", "MT", "DE", "PL", "GB", "FR", "IE", "IS", "US"];
-
-  // ✅ 렌더링 완료 후 색상 반영
-  polygonSeries.events.on("datavalidated", function() {
-    polygonSeries.mapPolygons.each(function(polygon) {
-      const id = polygon.dataItem.get("id");
-      if (visited.includes(id)) {
-        polygon.setAll({
-          fill: am5.color(0x74c0fc),
-          stroke: am5.color(0x007bff),
-          strokeWidth: 1.2,
-          tooltipText: "{name} 🌍"
-        });
+const ctx = document.getElementById('funnelChart');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['7일', '14일', '30일', '100일', '180일', '365일'],
+    datasets: [{
+      label: '미구매율 (%)',
+      data: [78.0, 73.5, 68.3, 60.8, 52.5, 41.7],
+      backgroundColor: '#74c0fc',
+      borderRadius: 10,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: '미구매 방문자 전환 퍼널 (7~365일)',
+        font: { size: 18, weight: '600' }
       }
-    });
-  });
-
-  chart.set("homeGeoPoint", { longitude: 10, latitude: 40 });
-  chart.set("homeZoomLevel", 1.2);
-  chart.goHome();
-
-  chart.appear(1000, 100);
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        ticks: { stepSize: 10 }
+      }
+    }
+  }
 });
 </script>
-
-
-
 
 <!-- CONTACT -->
 <section id="contact" class="contact">
@@ -649,6 +669,7 @@ document.querySelector('a[href="./resume.pdf"]').addEventListener('click', funct
 
 </body>
 </html>
+
 
 
 
