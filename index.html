@@ -430,14 +430,30 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
   </div>
 </section>
 
-<!-- 💼 ABOUT WORK SECTION --> <section id="work" class="work-section" style="padding:120px 6vw 100px; background:#fafafa; border-bottom:1px solid var(--line);" > <h2 style="font-size:clamp(32px,4vw,42px); font-weight:700; margin-bottom:40px;"> About Work </h2> <!-- 1️⃣ Intro --> <p style="font-size:clamp(18px,1.5vw,22px); line-height:1.9; color:var(--muted); max-width:800px;" > 데이터를 통해 고객의 행동을 이해하고,<br>감성적인 연결로 브랜드 충성도를 높이는 CRM 전략을 만들어갑니다. <br><br> 퍼널 분석과 세그먼트 기반 메시지 전략을 중심으로,<br>브랜드의 <strong>재구매율 향상</strong>과 <strong>리텐션 자동화</strong>를 실현했습니다. </p>
+<!-- ABOUT WORK -->
+<section id="work" class="work-section" style="padding:120px 6vw; background:#fafafa; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:60px;">
+  
+  <!-- 왼쪽 텍스트 영역 -->
+  <div class="work-text" style="flex:1 1 480px; min-width:320px;">
+    <h2 style="font-size:clamp(32px,4vw,42px); font-weight:700; margin-bottom:40px;">About Work</h2>
+    <p style="font-size:clamp(18px,1.5vw,22px); line-height:1.9; color:var(--muted); max-width:800px;">
+      데이터를 통해 고객의 행동을 이해하고,<br>
+      감성적 연결로 브랜드 충성도를 높이는 CRM 전략을 만들어갑니다.<br><br>
+      퍼널 분석과 세그먼트 기반 메시지 전략을 중심으로,<br>
+      브랜드의 <strong>재구매율 향상</strong>과 <strong>리텐션 자동화</strong>를 실현했습니다.
+    </p>
+  </div>
 
-<figure style="margin:80px auto 60px; max-width:780px;">
-  <canvas id="funnelChart" role="img" aria-label="미구매 방문자 전환 퍼널 차트"></canvas>
-  <figcaption class="k" style="text-align:center; margin-top:8px">
-    90일 이후 전환 본격 발생, 180일 이후 재활성 필요
-  </figcaption>
-</figure>
+  <!-- 오른쪽 그래프 영역 -->
+  <figure class="work-chart" style="flex:1 1 480px; min-width:360px; margin:0 auto; max-width:600px;">
+    <canvas id="funnelChart" role="img" aria-label="미구매 방문자 전환 퍼널 차트"></canvas>
+    <figcaption class="k" style="text-align:center; margin-top:8px;">
+      90일 이후 전환 본격 발생, 180일 이후 재활성 필요
+    </figcaption>
+  </figure>
+
+</section>
+
 
 
   <div class="work-strengths" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center; margin-top:40px;">
@@ -725,5 +741,6 @@ footer{text-align:center;padding:40px 6vw;color:var(--muted);border-top:1px soli
 </script>
 </body>
 </html>
+
 
 
