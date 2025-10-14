@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CRM 전략 기획자 | 김현진</title>
 
-<!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-<!-- 3D Graph -->
 <script src="https://unpkg.com/three"></script>
 <script src="https://unpkg.com/3d-force-graph"></script>
 
@@ -24,28 +22,61 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex S
 a{color:var(--ink);text-decoration:none}
 a:hover{text-decoration:underline}
 
+/* NAV */
 nav{
   position:fixed;top:0;left:0;right:0;height:64px;background:#fff;border-bottom:1px solid var(--line);
   display:flex;align-items:center;justify-content:space-between;padding:0 6vw;z-index:1000;
 }
 .brand{font-weight:700;}
-.nav-links a{margin-left:20px;font-weight:600;}
+.nav-links a{margin-left:20px;font-weight:600}
 
-section{padding:120px 6vw 96px;border-bottom:1px solid var(--line);}
+/* SECTION */
+section{padding:120px 6vw 96px;border-bottom:1px solid var(--line)}
 h1,h2,h3{margin:0 0 12px 0;letter-spacing:-0.3px}
 h2{font-size:2rem;margin-bottom:28px;font-weight:700}
 h3{font-size:1.2rem}
 p{line-height:1.8;margin:0 0 10px 0}
 
 /* HERO */
-.hero{padding-top:calc(120px + 64px)}
-.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end}
-.type-line{font-size:clamp(28px,4vw,42px);font-weight:700;border-right:2px solid var(--ink);white-space:nowrap;overflow:hidden}
-.hero-sub{color:var(--muted);margin-top:12px;max-width:720px}
-.hero-tag{margin-top:14px;display:inline-block;padding:6px 12px;background:#000;color:#fff;font-weight:700}
-.hero-img-wrap{justify-self:end;width:min(420px,35vw);aspect-ratio:3/4} /* 3:4 고정 */
-.hero-img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);background:transparent;border:none}
-.no-hero{display:none}
+.hero{padding-top:calc(120px + 64px); position:relative; overflow:visible;}
+.hero-grid{
+  display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end;
+}
+.type-line{
+  font-size:clamp(28px,4vw,42px);font-weight:700;border-right:2px solid var(--ink);
+  white-space:nowrap;overflow:hidden; position:relative; z-index:2;
+}
+.hero-sub{color:var(--muted);margin-top:12px;max-width:720px; position:relative; z-index:2;}
+.hero-tag{margin-top:14px;display:inline-block;padding:6px 12px;background:#000;color:#fff;font-weight:700; position:relative; z-index:2;}
+/* 우산 이미지: 잘림 방지 (contain) + 자연 비율 */
+.hero-img-wrap{
+  justify-self:end; align-self:center;
+  width:min(520px,38vw);               /* 적당한 최대 너비 */
+  max-height:60vh;                     /* 화면 높이에 맞춰 축소 */
+  overflow:visible;                    /* 우산 끝이 잘리지 않도록 */
+}
+.hero-img{
+  width:100%; height:auto;             /* 자연 비율 유지 */
+  object-fit:contain;                   /* 이미지 절대 자르지 않음 */
+  filter:grayscale(100%);
+  background:transparent; border:none;
+}
+
+/* 비 효과: ‘1’ 숫자가 비처럼 떨어지기 */
+.rain{
+  position:absolute; left:0; top:0; width:40vw; height:100%;
+  pointer-events:none; overflow:hidden; z-index:1;
+}
+.drop{
+  position:absolute; top:-10%; font-weight:700; color:#dadada; opacity:0.65;
+  font-size:clamp(12px, 1.2vw, 18px); line-height:1;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  0%{ transform: translateY(-10%) rotate(0deg); opacity:.0;}
+  10%{opacity:.65;}
+  100%{ transform: translateY(115vh) rotate(5deg); opacity:.05;}
+}
 
 /* ABOUT */
 .about p{margin:6px 0}
@@ -54,7 +85,7 @@ p{line-height:1.8;margin:0 0 10px 0}
 /* KSA GRAPH & SUMMARY */
 .graph-container{
   width:100%;height:clamp(360px,55vh,560px);
-  border:1px solid var(--line);background:#fff; /* 흰 배경 유지 */
+  border:1px solid var(--line);background:#fff;
 }
 .ksa-summary{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
 .ksa-card{border:1px solid var(--line);padding:24px}
@@ -66,8 +97,12 @@ p{line-height:1.8;margin:0 0 10px 0}
 .projects-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
 .project{grid-column:span 6;border:1px solid var(--line);padding:20px}
 @media (max-width:980px){.project{grid-column:1/-1}}
-.p-image{width:100%;aspect-ratio:1/1;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;background:#f6f6f6}
+.p-image{
+  width:80%; margin:0 auto 12px auto; aspect-ratio:1/1;            /* 작게 고정 + 정사각 */
+  border:1px solid var(--line); display:flex;align-items:center;justify-content:center;background:#f6f6f6;
+}
 .p-image img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%)}
+.p-image img[src] + .ph{display:none} /* 이미지 있을 땐 플레이스홀더 숨김 */
 .p-image .ph{font-size:12px;color:var(--muted)}
 .no-image{display:none}
 .meta{color:var(--muted);font-size:0.95rem;margin-top:8px}
@@ -107,6 +142,9 @@ footer{text-align:center;padding:40px 6vw;color:#888}
 
 <!-- HERO -->
 <section class="hero" id="home">
+  <!-- 숫자 1 비 효과 -->
+  <div class="rain" id="rain"></div>
+
   <div class="hero-grid">
     <div>
       <div id="typeTarget" class="type-line" aria-label="CRM 전략 기획자 김현진 입니다."></div>
@@ -116,9 +154,11 @@ footer{text-align:center;padding:40px 6vw;color:#888}
       </p>
       <span class="hero-tag">CRM Strategy • Retention • Funnel</span>
     </div>
+
     <figure class="hero-img-wrap">
+      <!-- 우산이 절대 잘리지 않도록 contain + auto height -->
       <img class="hero-img" src="./hero.png" alt="김현진 프로필"
-           onerror="this.closest('figure').classList.add('no-hero')"/>
+           onerror="this.closest('figure').style.display='none'"/>
     </figure>
   </div>
 </section>
@@ -137,7 +177,7 @@ footer{text-align:center;padding:40px 6vw;color:#888}
   <h2>KSA Graph</h2>
   <div id="graph" class="graph-container" role="img" aria-label="KSA 3D Force Graph"></div>
 
-  <!-- KSA SUMMARY (요약 탭) -->
+  <!-- KSA SUMMARY -->
   <div class="ksa-summary">
     <div class="ksa-card">
       <h3># Skills / Certificates</h3>
@@ -311,13 +351,32 @@ footer{text-align:center;padding:40px 6vw;color:#888}
   type();
 })();
 
-/* KSA Graph (비율 안정 + 리사이즈) */
+/* 숫자 ‘1’ 비 효과 생성 */
+(function(){
+  const wrap=document.getElementById('rain');
+  const COUNT=28; // 떨어지는 개수
+  for(let i=0;i<COUNT;i++){
+    const s=document.createElement('span');
+    s.className='drop';
+    s.textContent='1';
+    // 랜덤한 시작 X, 지연, 지속시간
+    const left = Math.random()*38; // 0~38vw (타이핑 영역 근처)
+    const delay = (Math.random()*3).toFixed(2);     // 0~3s
+    const dur   = (4+Math.random()*4).toFixed(2);   // 4~8s
+    s.style.left = `calc(${left}vw)`;
+    s.style.animationDuration = `${dur}s`;
+    s.style.animationDelay = `${delay}s`;
+    wrap.appendChild(s);
+  }
+})();
+
+/* KSA Graph */
 const categories={ Knowledge:'#000000', Skills:'#333333', Abilities:'#555555', Experience:'#777777' };
 const dataMap={
   Knowledge:['CRM 전략','세그먼트 전략','퍼널 분석','리텐션 마케팅','LTV 관리','GA4 분석'],
   Skills:['GA4','Excel','SQL','Notion','Kakao Biz'],
   Abilities:['문제 정의력','데이터 스토리텔링','가설 검증','협업 리더십','빠른 실행력'],
-  Experience:['캠페인 운영','리포트 작성','CRM 제안서','세ग먼트 기획']
+  Experience:['캠페인 운영','리포트 작성','CRM 제안서','세그먼트 기획']
 };
 const gData={nodes:[],links:[]}; let nodeId=0;
 Object.entries(dataMap).forEach(([cat,items])=>items.forEach(name=>gData.nodes.push({id:nodeId++,name,group:cat,color:categories[cat]})));
